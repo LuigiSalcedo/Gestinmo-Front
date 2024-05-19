@@ -1,16 +1,15 @@
 <template>
-  <div class="body-container">
-    <LoginView/>
-  </div>
+   <DesktopView/>
+  
 </template>
 
 <script>
-import LoginView from '@/view/LoginView.vue'
-
+import DesktopView from './view/DesktopView.vue';
+//import LoginView from './view/LoginView.vue';
 export default {
   name: 'App',
   components: {
-    LoginView
+    DesktopView,
   }
 }
 </script>
@@ -22,7 +21,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
 }
 
 button{
@@ -47,13 +49,6 @@ body{
     justify-content: center;
 }
 
-.body-container{
-    display: flex;
-    max-width: 1600px;
-    max-height: 900px;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #2c3e50;
-}
+
 
 </style>

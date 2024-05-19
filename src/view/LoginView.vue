@@ -1,5 +1,6 @@
 <template>
-    <div class="login-view">
+    <div class="body-container">
+        <div class="login-view">
         <div class="login-galeria">
             <img  src="@/assets/imagenes/imagen (0).jpg" class="imagen-galeria" alt="">
         </div>
@@ -12,11 +13,12 @@
             <form action="" class="form-inicio-sesion">
                 <InputForm id="Usuario" tipo="Text"/>
                 <InputForm id="Contraseña" tipo="Password"/>
-                <button>Ingresar</button>
+                <button @click="desktop">Ingresar</button>
             </form>
         </div>
     </div>
-    
+
+    </div>
 
 </template>
 
@@ -31,6 +33,14 @@ export default{
         InputForm,
         LogoCasaVentas
     },
+    data: () => ({
+    imagen: "@/assets/imagenes/imagen (0).jpg",
+  }),
+    methods:{
+        desktop(){
+            this.$router.push({name:"Desktop"});
+        },
+    }
     
 }
 
@@ -62,11 +72,20 @@ export default{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    max-height: 900px;
+    max-width: 1440px;
 }
 
 .form-inicio-sesion{
     background-color: #81BDDE;
     width: 95%;
+}
+
+.body-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2c3e50;
 }
 
 </style>

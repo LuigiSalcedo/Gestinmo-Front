@@ -10,7 +10,7 @@ export default{
     name:'LogoCasaVentas',
     methods:{
         gotoLogin(){
-            this.$router.push('/');
+            this.$router.push('/Login');
         }
     }
 }
