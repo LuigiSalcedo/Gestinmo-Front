@@ -5,7 +5,7 @@
             <InputForm id="Nombre" tipo="Text"/>
             <InputForm id="Identificación" tipo="Text"/>
             <InputForm id="Celular" tipo="number"/>
-            <InputForm id="Correo" tipo="number"/>
+            <InputForm id="Correo" tipo="Text"/>
             <button style="height: 40px; margin-top: 28px;">Registrar</button>
         </form>
     </div>
