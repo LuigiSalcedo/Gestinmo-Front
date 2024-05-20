@@ -1,6 +1,6 @@
 <template>
     <div class="InmuebleView">
-        <h1>Esta el la pagina de un inmueble</h1>
+        <h1>Esta es la pagina de los inmueble</h1>
         
     </div>
 
@@ -9,7 +9,14 @@
 <script>
     export default {
         name:"InmuebleView",
-        
+        mounted(){
+            this.enviarTitulo()
+        },
+        methods:{
+            enviarTitulo(){
+                this.$emit('titulo-enviado',"Inmuebles");
+            }
+        }
     }
 
 </script>

@@ -8,6 +8,7 @@
             <router-link  v-for="route in routes"
                 :key="route.name"
                 :to="route.path"
+                @click="enviarTitulo(route.name)"
                 class="elemento-lista">
                 {{ route.name }}
             </router-link>
@@ -24,7 +25,6 @@
         },
         data() {
             return {
-                pressedLink: null,
                 routes: [
                     { name: 'Inmuebles', path: '/Inmuebles' },
                     { name: 'Clientes', path: '/Clientes' },
@@ -32,6 +32,11 @@
                 ]
             };
         },
+        methods:{
+            enviarTitulo(titulo){
+                this.$emit('titulo-enviado', titulo);
+            }
+        }
         
     }
 
@@ -59,7 +64,7 @@
     background-color: yellow;
     color: #81BDDE;
     transition: 350ms;
-    transform: scale(1.1);
+    transform: scale(1.05);
     padding: 10px;
     margin: 3px;
 }
@@ -91,7 +96,7 @@ li{
     pointer-events: none;
     color: white;
     background-color: gray;
-    transition: 400ms;
-    transform: scale(1.1);
+    transition: 350ms;
+    transform: scale(1.05);
 }
 </style>

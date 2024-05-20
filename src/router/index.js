@@ -3,8 +3,14 @@ import LoginView from "@/view/LoginView.vue";
 import DesktopView from "@/view/DesktopView.vue";
 import ClientesView from "@/view/ClientesView.vue";
 import InmueblesView from "@/view/InmueblesView.vue";
+import RegistrarClienteview from "@/view/RegistrarClienteView.vue"
 
 const routes = [
+  {
+    path: "/",
+    name: "Inmuebles",
+    component: InmueblesView,
+  },
   {
     path: "/Inmuebles",
     name: "Inmuebles",
@@ -20,11 +26,15 @@ const routes = [
     name: "Login",
     component: LoginView,
   },
-  
   {
     path: "/Clientes",
     name: "Clientes",
     component: ClientesView,
+  },
+  {
+    path: "/RegistrarCliente",
+    name: "RegistrarCliente",
+    component: RegistrarClienteview,
   }
   
 ];

@@ -8,7 +8,7 @@
 
         <div class="container-form">
 
-            <LogoCasaVentas/>
+            <LogoCasaVentas tamaño="150px"/>
 
             <form action="" class="form-inicio-sesion">
                 <InputForm id="Usuario" tipo="Text"/>
@@ -33,13 +33,36 @@ export default{
         InputForm,
         LogoCasaVentas
     },
-    data: () => ({
-    imagen: "@/assets/imagenes/imagen (0).jpg",
-  }),
+    data(){
+        return {
+            indice: 0,
+            rutas:[
+                "@/assets/imagenes/imagen (0).jpg",
+                "@/assets/imagenes/imagen (1).jpg",
+                "@/assets/imagenes/imagen (2).jpg",
+                "@/assets/imagenes/imagen (3).jpg"
+            ],
+            intervalId: null
+        };
+    },
+    computed: {
+        imagenActual() {
+        return this.rutas[this.indice];
+        }
+    },
+    mounted(){
+        this.intervalId = setInterval(this.cambiarimg, 3000);
+    },
+    beforeUnmount(){
+        clearInterval(this.intervalId)
+    },
     methods:{
         desktop(){
             this.$router.push({name:"Desktop"});
         },
+        cambiarimg(){
+            this.indice = (this.indice + 1) % this.rutas.length;
+        }
     }
     
 }
