@@ -2,7 +2,7 @@
     
     <div class="ventana-inmueble">
 
-        <img :src=inmueble.src width="160px"  :alt="inmueble.name">
+        <img v-if="inmueble.src" :src=inmueble.src width="160px"  :alt="inmueble.name">
         <div class="inmueble-descripcion">
             <p>{{ inmueble.nombre }}</p>
             <p>{{ inmueble.direccion }}</p>
@@ -26,11 +26,6 @@
         },
         data(){
             return this.inmueble;
-        },
-        methods:{
-            acturalizarImagen(){
-                this.src = this.inmueble.src;
-            }
         }
     }
 </script>
@@ -43,16 +38,18 @@
         flex-wrap: wrap;
         flex-direction: column;
         width: 160px;
+        color: #2c3e50;
     }
 
     .inmueble-descripcion{
         background-color: white;
-        color: #2c3e50;
+        color: inherit;
     }
 
     .ventana-inmueble:hover{
         transform: scale(1.1);
         transition: 350ms;
+        color: #81BDDE;
     }
 
 

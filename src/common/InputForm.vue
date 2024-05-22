@@ -1,15 +1,20 @@
 <template>
   <div class="input-container">
     <input
-      :id= "id"
+      :id= "input.name"
       class="input-container-input"
-      :type= "tipo"
+      :name="input.name"
+      :type= "input.tipo"
+      :value="input.datos"
+      :disabled="input.estado"
       required
     />
     <label
-      :for="id"
+      :for="input.name"
       class="input-container-label"
-    >{{ id }}</label>
+    >{{input.nombre }}</label>
+
+    <p>{{  }}</p>
   </div>
 
 </template>
@@ -18,10 +23,14 @@
 
     export default {
     name: 'InputForm',
-    props: {
-        id: String,
-        tipo: String
-    }
+      props: {
+          input:{
+            nombre: String,
+            tipo: String,
+            name: String,
+            estado: Boolean
+          }
+      }
     }
 
 </script>
@@ -30,8 +39,7 @@
 
     .input-container {
         position: relative;
-        margin-top: 30px;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
     }
 
     .input-container-input {
@@ -42,7 +50,7 @@
         outline: 2px solid white;
         background-color: transparent;
         transition: outline-color 500ms;
-        width: 100%;
+        width: 95%;
     }
 
     .input-container-input:is(:focus, :valid) {

@@ -11,8 +11,7 @@
             <LogoCasaVentas tamaño="150px"/>
 
             <form action="" class="form-inicio-sesion">
-                <InputForm id="Usuario" tipo="Text"/>
-                <InputForm id="Contraseña" tipo="Password"/>
+                <InputForm v-for="input in inputs" :input="input" :key="input"/>
                 <button @click="desktop">Ingresar</button>
             </form>
         </div>
@@ -42,7 +41,11 @@ export default{
                 "@/assets/imagenes/imagen (2).jpg",
                 "@/assets/imagenes/imagen (3).jpg"
             ],
-            intervalId: null
+            intervalId: null,
+            inputs :[
+                {nombre: "Usuario", tipo:"Text", name:"usuario"},
+                {nombre: "Contraseña", tipo:"password", name:"password"},
+            ]
         };
     },
     computed: {

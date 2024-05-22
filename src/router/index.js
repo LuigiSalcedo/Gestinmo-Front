@@ -3,7 +3,9 @@ import LoginView from "@/view/LoginView.vue";
 import DesktopView from "@/view/DesktopView.vue";
 import ClientesView from "@/view/ClientesView.vue";
 import InmueblesView from "@/view/InmueblesView.vue";
-import RegistrarClienteview from "@/view/RegistrarClienteView.vue"
+import RegistrarClienteView from "@/view/RegistrarClienteView.vue";
+import RegistrarInmuebleView from "@/view/RegistrarInmuebleView.vue";
+import DetallesCliente from  "@/view/DetallesCliente.vue"
 
 const routes = [
   {
@@ -34,7 +36,17 @@ const routes = [
   {
     path: "/RegistrarCliente",
     name: "RegistrarCliente",
-    component: RegistrarClienteview,
+    component: RegistrarClienteView,
+  },
+  {
+    path: "/RegistrarInmueble",
+    name: "RegistrarInmueble",
+    component: RegistrarInmuebleView,
+  },
+  {
+    path: "/Clientes/:cliente",
+    name: "DetallesCliente",
+    component: DetallesCliente,
   }
   
 ];

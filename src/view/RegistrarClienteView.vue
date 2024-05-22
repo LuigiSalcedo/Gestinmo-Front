@@ -1,13 +1,13 @@
 <template>
     <div class="form-container">
-        <h2>Registrar</h2>
+        <h2>Registrar Cliente</h2>
         <form action="" class="form-registrar-cliente">
-            <InputForm id="Nombre" tipo="Text"/>
-            <InputForm id="Identificación" tipo="Text"/>
-            <InputForm id="Celular" tipo="number"/>
-            <InputForm id="Correo" tipo="Text"/>
-            <button style="height: 40px; margin-top: 28px;">Registrar</button>
+            <InputForm v-for="input in inputs" :key="input" :input="input"/>
+
+            <button style="height: 38px;">Registrar</button>
         </form>
+
+        <router-link to="/RegistrarInmueble" class="router-button">Ir a registrar inmueble</router-link>
     </div>
     
 </template>
@@ -21,13 +21,23 @@ export default{
         InputForm
     },
     mounted(){
-            this.enviarTitulo()
-        },
-        methods:{
-            enviarTitulo(){
-                this.$emit('titulo-enviado',"Clientes");
-            }
+        this.enviarTitulo()
+    },
+    methods:{
+        enviarTitulo(){
+            this.$emit('titulo-enviado',"Clientes");
         }
+    },
+    data(){
+        return {
+            inputs :[
+                {nombre: "Nombre", tipo:"Text", name:"nombre"},
+                {nombre: "Identificación", tipo:"Number", name:"id"},
+                {nombre: "Celular", tipo:"Number", name:"celular"},
+                {nombre: "Correo", tipo:"email", name:"email"},
+            ]
+        }
+    }
 }
 
 </script>

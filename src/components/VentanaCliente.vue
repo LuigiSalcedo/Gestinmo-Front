@@ -1,17 +1,17 @@
 <template>
     
-    <div class="cliente-ventana">
-
+    <div @click="irCliente" class="cliente-ventana">
         <img src="@/assets/simbolos/perfil-de-usuario.png" class="foto" width="150px">
         <div class="cliente-descripcion">
             <p>
-                {{ nombre }}
+                {{ clienteD.nombre }}
             </p>
             <p>
-                {{ id }}
+                {{ clienteD.id }}
             </p>
         </div>
-    </div>
+   </div>
+
 
 </template>
 
@@ -19,8 +19,19 @@
     export default{
         name: 'VentanaCliente',
         props:{
-            nombre: String,
-            id: String
+            clienteD:{
+                nombre: String,
+                id: String,
+                correo: String,
+                celular: String
+            }
+        },
+        methods: {
+            irCliente() {
+                const cliente = this.clienteD;
+                this.$store.commit('setCliente', cliente); 
+                this.$router.push("/Clientes/cliente"); 
+            }
         }
     }
     
@@ -34,16 +45,19 @@
         flex-wrap: wrap;
         flex-direction: column;
         width: 140px;
+        color: #2c3e50;
     }
 
     .cliente-descripcion{
         background-color: white;
-        color: #2c3e50;
+        color: inherit;
     }
 
     .cliente-ventana:hover{
         transform: scale(1.1);
+        color: #81BDDE;
         transition: 350ms;
     }
 
+    
 </style>

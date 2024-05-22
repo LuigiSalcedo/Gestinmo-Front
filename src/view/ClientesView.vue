@@ -5,8 +5,7 @@
 
         <VentanaCliente v-for="cliente in clientes" 
         :key="cliente.id"
-        :id="cliente.id" 
-        :nombre="cliente.nombre"
+        :clienteD="cliente"
         />
     </div>
    
@@ -24,19 +23,14 @@ import AgregarButton from '@/common/AgregarButton.vue';
         data(){
             return{
                 clientes :[
-                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona'},
-                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona'},
-                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona'},
-                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona'},
-                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona'},
-                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona'},
-                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona'},
-                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona'},
-                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona'},
-                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona'},
-                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona'},
-                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona'},
-                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona'}
+                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona',correo:'grisoncastilla@gmail.com', celular:'3014649618'},
+                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona',correo:'grisoncastilla@gmail.com', celular:'3014649618'},
+                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona',correo:'grisoncastilla@gmail.com', celular:'3014649618'},
+                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona',correo:'grisoncastilla@gmail.com', celular:'3014649618'},
+                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona',correo:'grisoncastilla@gmail.com', celular:'3014649618'},
+                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona',correo:'grisoncastilla@gmail.com', celular:'3014649618'},
+                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona',correo:'grisoncastilla@gmail.com', celular:'3014649618'},
+                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona',correo:'grisoncastilla@gmail.com', celular:'3014649618'},
                 ]
             }
         },
