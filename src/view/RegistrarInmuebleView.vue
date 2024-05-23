@@ -6,18 +6,21 @@
 
             <form action="" class="form-inmueble">
 
-                <label for="cliente" class="inmueble-label">Seleccione el cliente propietario: </label>
+                <label for="cliente" class="inmueble-label">Ingrese id propietario: </label>
+
+                <br>
 
                 <div class="seccion-cliente">
-                    <select name="cliente" id="cliente" class="select-cliente" required>
-                        <option disabled selected value="">Seleccione cliente</option>
-                        <option v-for="cliente in clientes" :value="cliente.id" :key="cliente">{{ cliente.nombre }}</option>
-                    </select>
+                    <InputForm v-if="cliente != null" :datos="cliente.id" :input="id"/>
+                    <InputForm v-else datos="" :input="id"/>
+
                     <label>ó</label>
                     <router-link to="/RegistrarCliente" class="router-button">Registrar cliente</router-link>
                 </div>
                 
                 <InputForm v-for="input in inputs" :key="input" :input="input"/>
+
+                <br>
 
                 <label for="descripcion" class="inmueble-label">Descripción</label>
                 <textarea name="descripcion" id="descripcion" cols="40" rows="5" required></textarea>
@@ -45,6 +48,7 @@
 
 <script>
 import InputForm from '@/common/InputForm.vue'
+import { mapState } from 'vuex';
 
     export default{
         name: 'RegistrarInmuebleView',
@@ -53,18 +57,16 @@ import InputForm from '@/common/InputForm.vue'
         },
         data(){
             return{
+                id:{nombre: "Id cliente", tipo:"number", name:"nombre"},
                 inputs :[
                 {nombre: "Nombre del inmueble", tipo:"Text", modelo:"inmueble", name:"nombre"},
                 {nombre: "Dirección", tipo:"Text", modelo: "direccion", name:"direccion"},
-                ],
-                clientes:[
-                    {id: 0, nombre:'Greison Rey Castilla Carmona'},
-                    {id: 1, nombre: 'Marco Antonio Solis'}
-                ],
-                inmueble: "",
-                direccion:"",
+                ]
             }
-        }
+        },
+        computed:{
+            ...mapState(['cliente'])
+        },
     }
 </script>
 
@@ -97,11 +99,12 @@ import InputForm from '@/common/InputForm.vue'
 
     .router-button{
         color: yellow;
-        padding: 5px;
+        padding: 10px;
         border: 2px solid yellow;
         text-decoration: none;
         border-radius: 4px;
         font-weight: bold;
+        margin-bottom: 20px;
     }
 
     .router-button:hover{

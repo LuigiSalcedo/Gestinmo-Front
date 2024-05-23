@@ -5,8 +5,9 @@
       class="input-container-input"
       :name="input.name"
       :type= "input.tipo"
-      :value="input.datos"
-      :disabled="input.estado"
+      :disabled="estado"
+      @input="onInput"
+      v-model="valor"
       required
     />
     <label
@@ -14,7 +15,6 @@
       class="input-container-label"
     >{{input.nombre }}</label>
 
-    <p>{{  }}</p>
   </div>
 
 </template>
@@ -28,8 +28,24 @@
             nombre: String,
             tipo: String,
             name: String,
-            estado: Boolean
-          }
+          },
+          estado: Boolean,
+          datos: String,
+      },
+      data(){
+        return{
+          valor:this.datos
+        } 
+      },
+      methods:{
+        getInputValues() {
+            return this.valor;
+        },
+      },
+      watch:{
+        datos(newVal) {
+          this.valor = newVal.value;
+        }
       }
     }
 
@@ -73,6 +89,16 @@
         scale: 0.8;
         background-color: #81BDDE;
         color: yellow;
+        font-size: 20px;
+    }
+    .input-container-input:focus + .input-container-label,
+    .input-container-input:valid + .input-container-label,
+    .input-container-input:disabled + .input-container-label{
+        padding-inline: 10px;
+        translate: 0px -14px;
+        scale: 0.8;
+        background-color: #81BDDE;
+        color: white;
         font-size: 20px;
     }
 

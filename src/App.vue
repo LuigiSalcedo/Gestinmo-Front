@@ -44,6 +44,12 @@ button:hover{
     transition: 350ms;
 }
 
+button:disabled{
+  border-color: white;
+  color: white;
+  background-color: transparent;
+}
+
 body{
     display: flex;
     align-items: center;

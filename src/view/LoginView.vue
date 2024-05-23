@@ -12,6 +12,7 @@
 
             <form action="" class="form-inicio-sesion">
                 <InputForm v-for="input in inputs" :input="input" :key="input"/>
+                <br>
                 <button @click="desktop">Ingresar</button>
             </form>
         </div>
