@@ -2,7 +2,6 @@
     <div class="detalles-cliente">
         <h2>Cliente id: {{cliente.id}}</h2>
        <form class="form-registrar-cliente" action="">
-            <InputForm :input="id" :datos="cliente.id" estado="falso"/>
             <InputForm :input="nombre" :datos="cliente.nombre" :estado="estado"/>
             <InputForm :input="celular" :datos="cliente.celular" :estado="estado"/>
             <InputForm :input="email" :datos="cliente.correo" :estado="estado"/>
@@ -10,6 +9,7 @@
        </form>
        <div>
         <Button @click="estado=!estado; guardar = !guardar" style="margin-right: 20px;">Editar</Button>
+        <button class="eliminar">Eliminar</button>
         <button @click="irRegistrarInmueble">Registrar inmueble</button>
        </div>
        
@@ -48,13 +48,24 @@
     }
 </script>
 
-<style scope>
+<style >
 .detalles-cliente{
     background-color:#81BDDE ;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    align-items: flex-start;
     padding: 30px;
+}
+
+.eliminar{
+    margin-right: 20px;
+    border-color:red ;
+    color: red;
+}
+
+.eliminar:hover{
+    background-color: red;
+    
 }
 
 </style>

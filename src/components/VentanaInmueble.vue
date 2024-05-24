@@ -1,14 +1,15 @@
 <template>
     
-    <div class="ventana-inmueble">
+    <div @click="irDetalleInmueble" class="ventana-inmueble">
 
         <img v-if="inmueble.src" :src=inmueble.src width="160px"  :alt="inmueble.name">
         <div class="inmueble-descripcion">
+            <p>{{ inmueble.id }}</p>
             <p>{{ inmueble.nombre }}</p>
+            <p>{{ inmueble.barrio }}</p>
             <p>{{ inmueble.direccion }}</p>
-            <p>{{ inmueble.cliente }}</p>
+            <p>{{ inmueble.propietario }}</p>
         </div>
-
     </div>
 
 </template>
@@ -18,14 +19,25 @@
         name: "VentanaInmueble",
         props:{
             inmueble:{
+                id: String,
                 nombre:String,
                 direccion:String,
-                cliente:String,
-                src: String
+                barrio:String,
+                propietario:String,
+                descripcion: String,
+                tipo:String,
+                src: String,
+
             },
         },
         data(){
             return this.inmueble;
+        },
+        methods:{
+            irDetalleInmueble() {
+                this.$store.commit('setInmueble', this.inmueble); 
+                this.$router.push("/Inmuebles/"+this.inmueble.nombre); 
+            }
         }
     }
 </script>

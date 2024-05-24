@@ -6,8 +6,8 @@
       :name="input.name"
       :type= "input.tipo"
       :disabled="estado"
-      @input="onInput"
-      v-model="valor"
+      @input="$emit('update:valor', $event.target.value)"
+      :value="valor"
       required
     />
     <label

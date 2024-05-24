@@ -28,9 +28,8 @@
         },
         methods: {
             irCliente() {
-                const cliente = this.clienteD;
-                this.$store.commit('setCliente', cliente); 
-                this.$router.push("/Clientes/cliente"); 
+                this.$store.commit('setCliente', this.clienteD); 
+                this.$router.push("/Clientes/"+this.clienteD.id); 
             }
         }
     }

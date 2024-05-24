@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import DesktopView from './view/DesktopView.vue';
+import DesktopView from './view/vistasPrincipales/DesktopView.vue';
 //import LoginView from './view/LoginView.vue';
 export default {
   name: 'App',
@@ -28,7 +28,6 @@ export default {
 }
 
 button{
-    width: 100px;
     padding: 10px;
     border-radius: 4px;
     text-align: center;

@@ -1,17 +1,15 @@
 <template>
     <div class="form-container">
         <h2>Registrar Cliente</h2>
-        <form action="" class="form-registrar-cliente">
-            <InputForm ref="inputForm" v-for="input in inputs" :key="input" :input="input"/>
-
-            <br>
-            <button style="height: 38px;">Registrar</button>
-
-            <button @click="irRegistrarInmueble">Registrar y registrar inmueble</button>
+        <form action="" class="detalles-cliente">
+            <div class="form-registrar-cliente">
+                <InputForm ref="inputForm" v-for="input in inputs" :key="input" :input="input"/>
+                <button style="height: 38px;">Registrar</button>
+            </div>
+            
+            <button @click="irRegistrarInmueble">Registrar cliente e inmueble</button>
         </form>
 
-
-        <router-link to="/RegistrarInmueble" class="router-button">Ir a registrar inmueble</router-link>
     </div>
     
 </template>
@@ -33,6 +31,7 @@ export default{
         },
         irRegistrarInmueble() {
                 this.valoresInput = this.$refs.inputForm.map(child => child.getInputValues())
+                console.log(this.valoresInput)
                 this.cliente = {
                     "nombre":this.valoresInput[0],
                     "id":this.valoresInput[1],
@@ -73,6 +72,7 @@ export default{
 
     .form-registrar-cliente{
         display: flex;
+        width: 100%;
         gap: 30px;
     }
 </style>

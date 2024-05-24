@@ -1,11 +1,12 @@
 import { createWebHistory, createRouter } from "vue-router";
 import LoginView from "@/view/LoginView.vue";
-import DesktopView from "@/view/DesktopView.vue";
-import ClientesView from "@/view/ClientesView.vue";
-import InmueblesView from "@/view/InmueblesView.vue";
-import RegistrarClienteView from "@/view/RegistrarClienteView.vue";
-import RegistrarInmuebleView from "@/view/RegistrarInmuebleView.vue";
-import DetallesCliente from  "@/view/DetallesCliente.vue"
+import DesktopView from "@/view/vistasPrincipales/DesktopView.vue";
+import ClientesView from "@/view/vistasPrincipales/ClientesView.vue";
+import InmueblesView from "@/view/vistasPrincipales/InmueblesView.vue";
+import RegistrarClienteView from "@/view/Registrar/RegistrarClienteView.vue";
+import RegistrarInmuebleView from "@/view/Registrar/RegistrarInmuebleView.vue";
+import DetallesCliente from  "@/view/Detalles/DetallesCliente.vue"
+import DetallesInmueble from "@/view/Detalles/DetallesInmueble.vue";
 
 const routes = [
   {
@@ -44,9 +45,14 @@ const routes = [
     component: RegistrarInmuebleView,
   },
   {
-    path: "/Clientes/:cliente",
+    path: "/Clientes/:clienteId",
     name: "DetallesCliente",
     component: DetallesCliente,
+  },
+  {
+    path: "/Inmuebles/:inmuebleNombre",
+    name: "DetallesInmueble",
+    component: DetallesInmueble,
   }
   
 ];
