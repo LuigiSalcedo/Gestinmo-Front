@@ -1,12 +1,11 @@
 <template>
+    <h2>Inmueble: {{ inmueble.id }}</h2>
     <div class="flex-column-bgblue-pd30">
-        <h2>Inmueble: {{inmueble.id}}</h2>
         <img width="200px" style="border-radius: 4px;" :src="inmueble.src" alt="">
         <br>
         <br>
        <form class="flex-column" action="">
             <div class="flex-row-30gap">
-                <InputForm :input="nombre" :datos="inmueble.nombre" :estado="estado"/>
                 <InputForm :input="barrio" :datos="inmueble.barrio" :estado="estado"/>
                 <InputForm :input="direccion" :datos="inmueble.direccion" :estado="estado"/>
                 <InputForm :input="tipo" :datos="inmueble.tipo" :estado="estado"/>

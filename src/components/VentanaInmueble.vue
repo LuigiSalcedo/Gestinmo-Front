@@ -5,7 +5,6 @@
         <img v-if="inmueble.src" :src=inmueble.src width="160px"  :alt="inmueble.nombre">
         <div class="inmueble-descripcion">
             <p>{{ inmueble.id }}</p>
-            <p>{{ inmueble.nombre }}</p>
             <p>{{ inmueble.barrio }}</p>
             <p>{{ inmueble.direccion }}</p>
             <p>{{ inmueble.propietario }}</p>
@@ -26,7 +25,7 @@
         methods:{
             irDetalleInmueble() {
                 this.$store.commit('setInmueble', this.inmueble); 
-                this.$router.push("/Inmuebles/"+this.inmueble.nombre); 
+                this.$router.push(`/Inmuebles/${this.inmueble.id}`); 
             }
         }
     }

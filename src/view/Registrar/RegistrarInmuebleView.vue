@@ -1,12 +1,12 @@
 <template>
-
+<h2>Registrar Inmueble</h2>
 <div class="flex-column-bgblue-pd30">
-        <h2>Registrar Inmueble</h2>
+        
        <form class="flex-column" action="">
 
         <div class="flex-row-30gap">
-            <InputForm v-if="cliente != null" :input="propietario" :datos="cliente.id"/>
-            <InputForm v-else :input="propietario"/>
+            <InputForm ref="inputForm" v-if="cliente != null" :input="propietario" :datos="cliente.id"/>
+            <InputForm ref="inputForm" v-else :input="propietario"/>
             <p class="label-bold-17-start">Ó</p>
             <router-link to="/RegistrarCliente" style="height: 20px; padding-top: px;" class="router-button">Registrar Cliente</router-link>
         </div>
@@ -57,7 +57,6 @@ import { mapState } from 'vuex';
                 propietario:{nombre: "Id propietario", tipo:"Text", name:"propietario"},
                 inputs :[
                     {nombre: "Id Inmueble", tipo:"Text", name:"idInmueble"},
-                    {nombre: "Nombre inmueble", tipo:"Text", name:"nombre"},
                     {nombre: "Barrio", tipo:"Text", name:"barrio"},
                     {nombre: "Dirección", tipo:"Text", name:"direccion"},
                 ]
@@ -66,6 +65,9 @@ import { mapState } from 'vuex';
         computed:{
             ...mapState(['cliente'])
         },
+        methods:{
+
+        }
     }
 </script>
 
@@ -114,6 +116,18 @@ import { mapState } from 'vuex';
         margin-bottom: 10px;
     }
 
+    select{
+        background-color: transparent;
+        border: 2px solid yellow;
+        color: white;
+        border-radius: 4px;
+    }
+
+    select:disabled{
+        border-color: white;
+        transition: 350ms;
+    }
+    
     option{
         background-color: #2c3e50;
         color: white;

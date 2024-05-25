@@ -29,7 +29,7 @@
         methods: {
             irCliente() {
                 this.$store.commit('setCliente', this.clienteD); 
-                this.$router.push("/Clientes/"+this.clienteD.id); 
+                this.$router.push(`/Clientes/${this.clienteD.id}`); 
             }
         }
     }

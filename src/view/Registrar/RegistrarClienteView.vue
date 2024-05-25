@@ -1,6 +1,7 @@
 <template>
+    <h2>Registrar Cliente</h2>
     <div class="form-container">
-        <h2>Registrar Cliente</h2>
+        
         <form action="" class="flex-column">
             <div class="flex-row-30gap">
                 <InputForm ref="inputForm" v-for="input in inputs" :key="input" :input="input"/>
@@ -24,16 +25,9 @@ export default{
     components:{
         InputForm
     },
-    mounted(){
-        this.enviarTitulo()
-    },
     methods:{
-        enviarTitulo(){
-            this.$emit('titulo-enviado',"Clientes");
-        },
         irRegistrarInmueble() {
                 this.valoresInput = this.$refs.inputForm.map(child => child.getInputValues())
-                console.log(this.valoresInput)
                 this.cliente = {
                     "nombre":this.valoresInput[0],
                     "id":this.valoresInput[1],

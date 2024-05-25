@@ -1,6 +1,7 @@
 <template>
+    
+    <h2>Cliente: {{cliente.id}}</h2>
     <div class="flex-column-bgblue-pd30">
-        <h2>Cliente id: {{cliente.id}}</h2>
         <br>
        <form class="flex-row-30gap" action="">
             <InputForm :input="nombre" :datos="cliente.nombre" :estado="estado"/>

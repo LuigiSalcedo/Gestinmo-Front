@@ -1,11 +1,9 @@
 <template>
     
-    <div @click="irDetalleOferta" class="ventana-inmueble">
+    <div @click="irOferta" class='ventana-inmueble'>
 
-        <img v-if="oferta.inmueble.src!=null" :src=oferta.inmueble.src width="160px"  :alt="oferta.inmueble.nombre">
+        <img v-if="oferta.inmueble.src!=null" :src=oferta.inmueble.src width="160px"  :alt="oferta.inmueble.id">
         <div class="inmueble-descripcion">
-            <p>{{ oferta.id }}</p>
-            <p>{{ oferta.inmueble.nombre }}</p>
             <p>{{ oferta.inmueble.barrio }}</p>
             <p>{{ oferta.inmueble.direccion }}</p>
             <p>{{ oferta.precio }}</p>
@@ -30,9 +28,10 @@
             return this.oferta;
         },
         methods:{
-            irDetalleOferta() {
+            irOferta() {
+                console.log(this.oferta)
                 this.$store.commit('setOferta', this.oferta); 
-                this.$router.push("/oferta/"+this.oferta.id); 
+                this.$router.push(`/Ofertas/${this.oferta.id}`); 
             }
         }
     }

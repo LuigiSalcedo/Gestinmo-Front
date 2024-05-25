@@ -1,24 +1,24 @@
 import { createStore } from 'vuex';
 
 const store = createStore({
-  state() {
-    return {
-      cliente: null,
-      inmueble: null,
-      oferta: null
-    };
-  },
-  mutations: {
-    setCliente(state, cliente) {
-      state.cliente = cliente;
+    state() {
+        return {
+            cliente: null,
+            oferta: null,
+            inmueble: null,
+        };
     },
-    setInmueble(state, inmueble){
-      state.inmueble = inmueble;
-    },
-    setOferta(state, oferta){
-      state.oferta = oferta;
+    mutations: {
+        setCliente(state, cliente) {
+            state.cliente = cliente;
+        },
+        setInmueble(state, inmueble) {
+            state.inmueble = inmueble;
+        },
+        setOferta(state, oferta=Object) {
+            state.oferta = oferta;
+        }
     }
-  }
 });
 
 export default store;

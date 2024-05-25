@@ -1,6 +1,6 @@
 <template>
     <div class="flex-p10-g20">
-        <AgregarButton @click="limpiar" ruta="/RegistrarInmueble" width="160px"/>
+        <AgregarButton @click="limpiar" ruta="/RegistrarOferta" width="160px"/>
         <ventana-oferta v-for="oferta in ofertas" :key="oferta" :oferta="oferta"/>
     </div>
 </template>
@@ -29,10 +29,15 @@
         data(){
             return{
                 ofertas :[
-                    {id:'1',inmueble: {id:"145-894" ,nombre: 'Casa Enea', barrio:"Las delicias", direccion:'cra 33 #59-77',
+                    {id:'1',
+                    inmueble: {id:"145-894" , barrio:"Las delicias", direccion:'cra 33 #59-77',
                     propietario:'Greison Rey Castilla Carmona', tipo:"vivienda", descripcion:"Hermosa vivienda de dos pisos, 5 habitaciones, 1 sala, 2 baños, sala de descanso",
-                    src: require('@/assets/inmuebles/inmueble (0).webp') }, estado:true, fecha:"2024-05-24", precio:"300000"},
-                    {id:"2",inmueble: {id:"145-512", nombre: 'Altos Pinos', barrio:'Bocagrande', direccion:'cll50 #46-81',
+                    src: require('@/assets/inmuebles/inmueble (0).webp') }, 
+                    estado:true, 
+                    fecha:"2024-05-24", 
+                    precio:"300000",
+                    captacion:"Venta-Casa"},
+                    {id:"2",inmueble: {id:"145-512", barrio:'Bocagrande', direccion:'cll50 #46-81',
                     propietario:'Marco Antonio Solis', tipo: "vivienda",
                     src: require('@/assets/inmuebles/inmueble (1).webp'),}, estado:false, fecha:"2024-05-24", precio:"300000"},
                     

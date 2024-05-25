@@ -8,6 +8,8 @@ import RegistrarInmuebleView from "@/view/Registrar/RegistrarInmuebleView.vue";
 import DetallesCliente from  "@/view/Detalles/DetallesCliente.vue"
 import DetallesInmueble from "@/view/Detalles/DetallesInmueble.vue";
 import OfertasView from "@/view/vistasPrincipales/OfertasView.vue";
+import DetallesOferta from "@/view/Detalles/DetallesOferta.vue";
+import RegistrarOfertaView from "@/view/Registrar/RegistrarOfertaView.vue";
 
 const routes = [
   {
@@ -56,9 +58,19 @@ const routes = [
     component: DetallesCliente,
   },
   {
-    path: "/Inmuebles/:inmuebleNombre",
+    path: "/Inmuebles/:inmuebleId",
     name: "DetallesInmueble",
     component: DetallesInmueble,
+  },
+  {
+    path: "/Ofertas/:Oferta",
+    name: "DetallesOferta",
+    component: DetallesOferta,
+  },
+  {
+    path: "/RegistrarOferta",
+    name: "RegistrarOferta",
+    component: RegistrarOfertaView,
   }
 ];
 
