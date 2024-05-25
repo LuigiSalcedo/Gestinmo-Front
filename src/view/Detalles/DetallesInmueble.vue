@@ -1,24 +1,28 @@
 <template>
-    <div class="detalles-cliente">
+    <div class="flex-column-bgblue-pd30">
         <h2>Inmueble: {{inmueble.id}}</h2>
         <img width="200px" style="border-radius: 4px;" :src="inmueble.src" alt="">
         <br>
         <br>
-       <form class="form-detalles-inmueble" action="">
-            <div class="form-registrar-cliente">
+       <form class="flex-column" action="">
+            <div class="flex-row-30gap">
                 <InputForm :input="nombre" :datos="inmueble.nombre" :estado="estado"/>
                 <InputForm :input="barrio" :datos="inmueble.barrio" :estado="estado"/>
                 <InputForm :input="direccion" :datos="inmueble.direccion" :estado="estado"/>
                 <InputForm :input="tipo" :datos="inmueble.tipo" :estado="estado"/>
                 <InputForm :input="propietario" :datos="inmueble.propietario" :estado="estado"/>
             </div>
-            <div class="form-detalles-inmueble">
-                <label for="descripcion" class="inmueble-label">Descripción</label>
+            <br>
+            <div class="flex-column">
+                <label for="descripcion" class="label-bold-17-start">Descripción</label>
                 <textarea name="descripcion" id="descripcion" :disabled="estado" :value="inmueble.descripcion" cols="40" rows="5" required></textarea>
 
             </div>
+            <br>
+            <div class="flex-align-left">
+                <button :disabled="guardar">Guardar</button>
+            </div>
             
-            <button :disabled="guardar" style="height: 38px;">Guardar</button>
        </form>
         <br>
        <div>
@@ -57,8 +61,14 @@
 </script>
 
 <style>
-.form-detalles-inmueble{
+.flex-column{
     display: flex;
     flex-direction: column;
 }
+
+.flex-align-left{
+    display: flex;
+    justify-content: left;
+}
+
 </style>

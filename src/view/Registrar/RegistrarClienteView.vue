@@ -1,13 +1,15 @@
 <template>
     <div class="form-container">
         <h2>Registrar Cliente</h2>
-        <form action="" class="detalles-cliente">
-            <div class="form-registrar-cliente">
+        <form action="" class="flex-column">
+            <div class="flex-row-30gap">
                 <InputForm ref="inputForm" v-for="input in inputs" :key="input" :input="input"/>
                 <button style="height: 38px;">Registrar</button>
             </div>
-            
-            <button @click="irRegistrarInmueble">Registrar cliente e inmueble</button>
+            <br>
+            <div class="flex-align-left">
+                <button @click="irRegistrarInmueble">Registrar cliente e inmueble</button>
+            </div>
         </form>
 
     </div>
@@ -53,7 +55,7 @@ export default{
                 {nombre: "Correo", tipo:"email", name:"email"},
             ],
             valoresInput: [],
-            cliente: {nombre:String, id:String, celular:String, email:String}
+            cliente: Object
         }
     }
 }
@@ -70,7 +72,7 @@ export default{
         padding: 30px;
     }
 
-    .form-registrar-cliente{
+    .flex-row-30gap{
         display: flex;
         width: 100%;
         gap: 30px;

@@ -4,7 +4,8 @@ const store = createStore({
   state() {
     return {
       cliente: null,
-      inmueble: null
+      inmueble: null,
+      oferta: null
     };
   },
   mutations: {
@@ -13,6 +14,9 @@ const store = createStore({
     },
     setInmueble(state, inmueble){
       state.inmueble = inmueble;
+    },
+    setOferta(state, oferta){
+      state.oferta = oferta;
     }
   }
 });

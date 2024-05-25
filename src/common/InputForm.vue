@@ -25,11 +25,7 @@
     export default {
     name: 'InputForm',
       props: {
-          input:{
-            nombre: String,
-            tipo: String,
-            name: String,
-          },
+          input:Object,
           estado: Boolean,
           datos: String,
       },
@@ -56,7 +52,6 @@
 
     .input-container {
         position: relative;
-        margin-bottom: 20px;
     }
 
     .input-container-input {

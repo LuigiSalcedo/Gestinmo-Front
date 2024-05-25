@@ -7,6 +7,7 @@ import RegistrarClienteView from "@/view/Registrar/RegistrarClienteView.vue";
 import RegistrarInmuebleView from "@/view/Registrar/RegistrarInmuebleView.vue";
 import DetallesCliente from  "@/view/Detalles/DetallesCliente.vue"
 import DetallesInmueble from "@/view/Detalles/DetallesInmueble.vue";
+import OfertasView from "@/view/vistasPrincipales/OfertasView.vue";
 
 const routes = [
   {
@@ -45,6 +46,11 @@ const routes = [
     component: RegistrarInmuebleView,
   },
   {
+    path: "/Ofertas",
+    name: "Ofertas",
+    component: OfertasView,
+  },
+  {
     path: "/Clientes/:clienteId",
     name: "DetallesCliente",
     component: DetallesCliente,
@@ -54,7 +60,6 @@ const routes = [
     name: "DetallesInmueble",
     component: DetallesInmueble,
   }
-  
 ];
 
 const router = createRouter({

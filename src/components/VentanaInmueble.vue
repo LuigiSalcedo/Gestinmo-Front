@@ -2,7 +2,7 @@
     
     <div @click="irDetalleInmueble" class="ventana-inmueble">
 
-        <img v-if="inmueble.src" :src=inmueble.src width="160px"  :alt="inmueble.name">
+        <img v-if="inmueble.src" :src=inmueble.src width="160px"  :alt="inmueble.nombre">
         <div class="inmueble-descripcion">
             <p>{{ inmueble.id }}</p>
             <p>{{ inmueble.nombre }}</p>
@@ -18,17 +18,7 @@
     export default{
         name: "VentanaInmueble",
         props:{
-            inmueble:{
-                id: String,
-                nombre:String,
-                direccion:String,
-                barrio:String,
-                propietario:String,
-                descripcion: String,
-                tipo:String,
-                src: String,
-
-            },
+            inmueble: Object,
         },
         data(){
             return this.inmueble;

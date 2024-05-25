@@ -1,6 +1,6 @@
 <template>
     
-    <div class="vista-cliente">
+    <div class="flex-p10-g20">
         <AgregarButton ruta="/RegistrarCliente" width="140px"/>
 
         <VentanaCliente v-for="cliente in clientes" 
@@ -37,12 +37,11 @@ import AgregarButton from '@/common/AgregarButton.vue';
             }
         }
     }
-    
 
 </script>
 
 <style>
-    .vista-cliente{
+    .flex-p10-g20{
         display: flex;
         flex-wrap: wrap;
         padding: 10px;

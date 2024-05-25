@@ -1,12 +1,14 @@
 <template>
-    <div class="detalles-cliente">
+    <div class="flex-column-bgblue-pd30">
         <h2>Cliente id: {{cliente.id}}</h2>
-       <form class="form-registrar-cliente" action="">
+        <br>
+       <form class="flex-row-30gap" action="">
             <InputForm :input="nombre" :datos="cliente.nombre" :estado="estado"/>
             <InputForm :input="celular" :datos="cliente.celular" :estado="estado"/>
             <InputForm :input="email" :datos="cliente.correo" :estado="estado"/>
             <button :disabled="guardar" style="height: 38px;">Guardar</button>
        </form>
+       <br>
        <div>
         <Button @click="estado=!estado; guardar = !guardar" style="margin-right: 20px;">Editar</Button>
         <button class="eliminar">Eliminar</button>
@@ -49,7 +51,7 @@
 </script>
 
 <style >
-.detalles-cliente{
+.flex-column-bgblue-pd30{
     background-color:#81BDDE ;
     display: flex;
     flex-direction: column;

@@ -28,6 +28,7 @@
                 routes: [
                     { name: 'Inmuebles', path: '/Inmuebles' },
                     { name: 'Clientes', path: '/Clientes' },
+                    {name:'Ofertas', path:'/Ofertas'},
                     {name:'Documentos', path:'/Login'}
                 ]
             };
