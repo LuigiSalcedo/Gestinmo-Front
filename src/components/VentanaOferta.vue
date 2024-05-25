@@ -4,9 +4,11 @@
 
         <img v-if="oferta.inmueble.src!=null" :src=oferta.inmueble.src width="160px"  :alt="oferta.inmueble.id">
         <div class="inmueble-descripcion">
+            <p v-if="oferta.estado">Activo</p>
+            <p v-else>Inactivo</p>
             <p>{{ oferta.inmueble.barrio }}</p>
             <p>{{ oferta.inmueble.direccion }}</p>
-            <p>{{ oferta.precio }}</p>
+            <p>${{ oferta.precio }}</p>
         </div>
     </div>
 

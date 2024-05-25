@@ -32,6 +32,7 @@ export default{
     data(){
         return {
             inputs :[
+                {nombre: "Id inmueble", tipo:"text", name:"precio"},
                 {nombre: "Precio", tipo:"Number", name:"precio"},
                 {nombre: "Captación", tipo:"Text", name:"captacion"},
             ],

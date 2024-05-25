@@ -35,11 +35,11 @@
                     src: require('@/assets/inmuebles/inmueble (0).webp') }, 
                     estado:true, 
                     fecha:"2024-05-24", 
-                    precio:"300000",
+                    precio:"300000000",
                     captacion:"Venta-Casa"},
                     {id:"2",inmueble: {id:"145-512", barrio:'Bocagrande', direccion:'cll50 #46-81',
                     propietario:'Marco Antonio Solis', tipo: "vivienda",
-                    src: require('@/assets/inmuebles/inmueble (1).webp'),}, estado:false, fecha:"2024-05-24", precio:"300000"},
+                    src: require('@/assets/inmuebles/inmueble (1).webp'),}, estado:false, fecha:"2024-05-24", precio:"250000000"},
                     
                 ]
             }
