@@ -6,8 +6,9 @@
       :name="input.name"
       :type= "input.tipo"
       :disabled="estado"
-      @input="$emit('update:valor', $event.target.value)"
+      @input="$emit('update:valor', $event.target.valor)"
       :value="valor"
+      v-model="valor"
       required
     />
     <label
@@ -40,11 +41,11 @@
       methods:{
         getInputValues() {
             return this.valor;
-        },
+        }
       },
       watch:{
         datos(newVal) {
-          this.valor = newVal.value;
+          this.valor = newVal.valor;
         }
       }
     }
