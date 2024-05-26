@@ -1,5 +1,26 @@
 <template>
-    
+    <div  class="flex-column-bgblue-pd30">
+        <label for="buscar" class="label-bold-17-start">Buscar</label>
+        <br>
+
+        <div class="flex-row-30gap">
+            <input class="buscar" name="buscar" type="text">
+
+            <fieldset>
+                <legend>Tipo de busqueda</legend>
+                <div class="flex-row-10gap">
+                    <input type="radio" name="tipo" value="nombre" checked>
+                    <label for="tipo" class="label-bold-10-start">Nombre</label>
+                </div>
+                <div class="flex-row-10gap">
+                    <input type="radio" name="tipo" value="id">
+                    <label for="tipo" class="label-bold-10-start">Identificación</label>
+                </div>
+                
+            </fieldset>
+            
+        </div>
+    </div>
     <div class="flex-p10-g20">
         <AgregarButton ruta="/RegistrarCliente" width="140px"/>
 
@@ -41,10 +62,37 @@ import AgregarButton from '@/common/AgregarButton.vue';
 </script>
 
 <style>
+    .buscar{
+        width: 95%;
+        padding: 5px;
+        border-radius: 8px ;
+        border: solid 4px white;
+        outline: none;
+    }
+
     .flex-p10-g20{
         display: flex;
         flex-wrap: wrap;
         padding: 10px;
         gap: 20px;
+    }
+
+    .flex-row-10gap{
+        display: flex;
+        gap: 10px ;
+    }
+
+    .label-bold-10-start{
+        font-size: 12px;
+    }
+
+    fieldset{
+        font-size: 12px;
+        border-color:white;
+        border: solid;
+        display: flex;
+        gap: 10px;
+        color: white;
+        align-items: center;
     }
 </style>

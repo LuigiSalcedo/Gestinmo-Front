@@ -1,15 +1,19 @@
 <template>
-   <DesktopView/>
-  
+ 
+  <!--
+  <DesktopView/>
+  -->
+  <LoginView/>
 </template>
 
 <script>
-import DesktopView from './view/vistasPrincipales/DesktopView.vue';
-//import LoginView from './view/LoginView.vue';
+import LoginView from './view/LoginView.vue';
+//import DesktopView from './view/vistasPrincipales/DesktopView.vue';
 export default {
   name: 'App',
   components: {
-    DesktopView,
+    //DesktopView
+    LoginView,
   }
 }
 </script>

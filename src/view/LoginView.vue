@@ -2,7 +2,7 @@
     <div class="body-container">
         <div class="login-view">
         <div class="login-galeria">
-            <img  src="@/assets/imagenes/imagen (0).jpg" class="imagen-galeria" alt="">
+            <img  :src="rutas[indice]" class="imagen-galeria" alt="">
         </div>
 
 
@@ -11,9 +11,12 @@
             <LogoCasaVentas tamaño="150px"/>
 
             <form action="" class="form-inicio-sesion">
-                <InputForm v-for="input in inputs" :input="input" :key="input"/>
+                <InputForm :input="usuario"/>
                 <br>
-                <button @click="desktop">Ingresar</button>
+                <br>
+                <InputForm :input="contraseña"/>
+                <br>
+                <button @click.prevent="desktop">Ingresar</button>
             </form>
         </div>
     </div>
@@ -37,16 +40,14 @@ export default{
         return {
             indice: 0,
             rutas:[
-                "@/assets/imagenes/imagen (0).jpg",
-                "@/assets/imagenes/imagen (1).jpg",
-                "@/assets/imagenes/imagen (2).jpg",
-                "@/assets/imagenes/imagen (3).jpg"
+                require("@/assets/imagenes/imagen (0).jpg"),
+                require("@/assets/imagenes/imagen (1).jpg"),
+                require("@/assets/imagenes/imagen (2).jpg"),
+                require("@/assets/imagenes/imagen (3).jpg")
             ],
             intervalId: null,
-            inputs :[
-                {nombre: "Usuario", tipo:"Text", name:"usuario"},
-                {nombre: "Contraseña", tipo:"password", name:"password"},
-            ]
+            usuario: {nombre: "Usuario", tipo:"Text", name:"usuario"},
+            contraseña: {nombre: "Contraseña", tipo:"password", name:"password"},
         };
     },
     computed: {
@@ -62,7 +63,7 @@ export default{
     },
     methods:{
         desktop(){
-            this.$router.push({name:"Desktop"});
+            this.$router.replace('/Desktop');
         },
         cambiarimg(){
             this.indice = (this.indice + 1) % this.rutas.length;

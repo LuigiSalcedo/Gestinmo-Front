@@ -8,6 +8,7 @@
       :disabled="estado"
       @input="$emit('update:valor', $event.target.valor)"
       :value="valor"
+      :pattern="input.pattern"
       v-model="valor"
       required
     />

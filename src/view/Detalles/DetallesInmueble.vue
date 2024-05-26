@@ -52,6 +52,12 @@
                 guardar:"false"
             }
         },
+        methods:{
+            irCrearOferta(){
+                this.$store.commit('setInmueble', this.inmueble); 
+                this.$router.push("/Registraroferta"); 
+            }
+        },
         computed:{
             ...mapState(['inmueble'])
         },

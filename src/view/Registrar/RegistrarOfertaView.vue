@@ -4,6 +4,9 @@
         
         <form action="" class="flex-column">
             <div class="flex-row-30gap">
+                <InputForm v-if="inmueble!=null" :datos="inmueble.id" :input="idInmueble"/>
+                <InputForm v-else :input="idInmueble"/>
+
                 <InputForm ref="inputForm" v-for="input in inputs" :key="input" :input="input"/>
                 <select name="Estado" id="estado" :disabled="estado" required>
                     <option value="Activo">Activo</option>
@@ -23,33 +26,37 @@
 
 <script>
 import InputForm from '@/common/InputForm.vue';
-export default{
-    
-    name:'RegistrarOfertaView',
-    components:{
-        InputForm
-    },
-    data(){
-        return {
-            inputs :[
-                {nombre: "Id inmueble", tipo:"text", name:"precio"},
-                {nombre: "Precio", tipo:"Number", name:"precio"},
-                {nombre: "Captación", tipo:"Text", name:"captacion"},
-            ],
-            valoresInput: [],
-            cliente: Object
-        }
-    },
-    methods:{
-        RegistrarOferta() {
-                this.valoresInput = this.$refs.inputForm.map(child => child.getInputValues())
-                this.cliente = {
-                    "precio":this.valoresInput[0],
-                    "captacion":this.valoresInput[1],
-                }
+import { mapState } from 'vuex';
+    export default{
+        
+        name:'RegistrarOfertaView',
+        components:{
+            InputForm
+        },
+        data(){
+            return {
+                idInmueble: {nombre: "Id inmueble", tipo:"text", name:"precio"},
+                inputs :[
+                    {nombre: "Precio", tipo:"Number", name:"precio"},
+                    {nombre: "Captación", tipo:"Text", name:"captacion"},
+                ],
+                valoresInput: [],
+                cliente: Object
+            }
+        },
+        methods:{
+            RegistrarOferta() {
+                    this.valoresInput = this.$refs.inputForm.map(child => child.getInputValues())
+                    this.cliente = {
+                        "precio":this.valoresInput[0],
+                        "captacion":this.valoresInput[1],
+                    }
+
+            },
 
         },
-
+        computed:{
+            ...mapState(['inmueble'])
+        }
     }
-}
 </script>

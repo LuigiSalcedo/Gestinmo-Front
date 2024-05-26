@@ -36,7 +36,7 @@
             </div>
             <br>
             <div class="flex-align-left">
-                <button style="height: 38px;">Registrar</button>
+                <button @click.prevent="registrar" style="height: 38px;">Registrar</button>
             </div>
        </form>
     </div>
@@ -66,7 +66,16 @@ import { mapState } from 'vuex';
             ...mapState(['cliente'])
         },
         methods:{
-
+            registrar(){
+                this.valoresInput = this.$refs.inputForm.map(child => child.getInputValues())
+                const inmueble = {
+                    "propietario":this.valoresInput[0],
+                    "id":this.valoresInput[1],
+                    "barrio":this.valoresInput[2],
+                    "Direccion":this.valoresInput[3]
+                }
+                console.log(inmueble)
+            }
         }
     }
 </script>

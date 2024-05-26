@@ -1,4 +1,30 @@
 <template>
+    <div  class="flex-column-bgblue-pd30">
+        <label for="buscar" class="label-bold-17-start">Buscar</label>
+        <br>
+
+        <div class="flex-row-30gap">
+            <input class="buscar" name="buscar" type="text">
+
+            <fieldset>
+                <legend>Tipo de busqueda</legend>
+                <div class="flex-row-10gap">
+                    <input type="radio" name="tipo" value="id" checked>
+                    <label for="tipo" class="label-bold-10-start">Identificación</label>
+                </div>
+                <div class="flex-row-10gap">
+                    <input type="radio" name="tipo" value="barrio">
+                    <label for="tipo" class="label-bold-10-start">Barrio</label>
+                </div>
+
+                <div class="flex-row-10gap">
+                    <input type="radio" name="tipo" value="propietario">
+                    <label for="tipo" class="label-bold-10-start">propietario</label>
+                </div>
+            </fieldset>
+            
+        </div>
+    </div>
     <div class="flex-p10-g20">
         
         <AgregarButton @click="limpiar" ruta="/RegistrarInmueble" width="160px"/>
