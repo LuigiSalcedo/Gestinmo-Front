@@ -33,9 +33,12 @@
 </template>
 
 <script>
-import VentanaCliente from '@/components/VentanaCliente.vue';
-import AgregarButton from '@/common/AgregarButton.vue';
-import api from '@/services/api';
+    import VentanaCliente from '@/components/VentanaCliente.vue';
+    import AgregarButton from '@/common/AgregarButton.vue';
+    import api from '@/services/api';
+    import { getToken } from '@/util/auth';
+    import { useToast } from "vue-toastification";
+    import "vue-toastification/dist/index.css";
 
     export default {
         components: { VentanaCliente,
@@ -44,10 +47,12 @@ import api from '@/services/api';
         name:"ClientesView",
         data(){
             return{
-                clientes :[]
+                clientes :[],
+                token:""
             }
         },
         mounted(){
+            this.asignarToken()
             this.enviarTitulo(),
             this.getCliente()
         },
@@ -56,16 +61,18 @@ import api from '@/services/api';
                 this.$emit('titulo-enviado',"Clientes");
             },
             async getCliente(){
-                const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJHZXN0aW5tbyIsInN1YiI6ImdyaXNvbmNhc3RpbGxhQGdtYWlsLmNvbSIsImlkIjoxMjM0NTY3ODkwLCJuYW1lIjoiR3JlaXNvbiBDYXN0aWxsYSBDYXJtb25hIn0.oSOn_XJUVpYLpjvX7P9G8q2745U05Ps2AWieTo32pUk"
-                try{
-                    const resultado = await api.get('/api/private/clients/search', token)
-                    this.clientes = resultado.data;
-                    console.log(this.clientes)
-                }catch(error){
-                    console.log(error)
+                const response = await api.get('/api/private/clients/search', this.token)
+                const toast = useToast();
+                if(response.success){
+                    this.clientes = response.data;
+                }else{
+                    toast.error("No se encontraron clientes registrados")
                 }
                 
-            }
+            },
+            asignarToken(){
+                this.token = getToken();
+            },
         }
     }
 

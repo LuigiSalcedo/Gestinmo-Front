@@ -1,25 +1,30 @@
 <template>
-    <h2>Inmueble: {{ inmueble.id }}</h2>
+    <h2>Inmueble: {{ inmueble['id']}}</h2>
     <div class="flex-column-bgblue-pd30">
         <img width="200px" style="border-radius: 4px;" :src="inmueble.src" alt="">
         <br>
         <br>
        <form class="flex-column" action="">
             <div class="flex-row-30gap">
-                <InputForm :input="barrio" :datos="inmueble.barrio" :estado="estado"/>
-                <InputForm :input="direccion" :datos="inmueble.direccion" :estado="estado"/>
-                <InputForm :input="tipo" :datos="inmueble.tipo" :estado="estado"/>
-                <InputForm :input="propietario" :datos="inmueble.propietario" :estado="estado"/>
+                <InputForm :input="barrio" :datos="inmueble['neighborhood']['name']" estado="false"/>
+                <InputForm  :input="direccion" :datos="inmueble['address']" estado="false"/>
+                
+                <select ref="type" name="tipos" id="tipos" :disabled="estado">
+                    <option :value="inmueble['type']['id']">{{ inmueble['type']['name'] }}</option>
+                    <option  v-for="tipo in tipos" :key="tipo" :value="tipo['id']" >{{tipo['name']}}</option>
+                </select>
+
+                <InputForm  :input="propietario" :datos="inmueble['clientOwner']['id']" estado="false"/>
             </div>
             <br>
             <div class="flex-column">
                 <label for="descripcion" class="label-bold-17-start">Descripción</label>
-                <textarea name="descripcion" id="descripcion" :disabled="estado" :value="inmueble.descripcion" cols="40" rows="5" required></textarea>
+                <textarea ref="observations" name="descripcion" id="descripcion" :disabled="estado" :value="inmueble['observations']" cols="40" rows="5" required></textarea>
 
             </div>
             <br>
             <div class="flex-align-left">
-                <button :disabled="guardar">Guardar</button>
+                <button @click="guardarInmueble" :disabled="guardar">Guardar</button>
             </div>
             
        </form>
@@ -35,6 +40,11 @@
 <script>
     import InputForm from "@/common/InputForm.vue";
     import { mapState } from 'vuex';
+    import api from "@/services/api";
+    import { useToast } from "vue-toastification";
+    import "vue-toastification/dist/index.css";
+import { getToken } from "@/util/auth";
+
 
     export default{
         name:'DetallesCliente',
@@ -49,14 +59,50 @@
                 tipo: {nombre: "Tipo", tipo:"text", name:"tipo"},
                 propietario: {nombre: "Propietario", tipo:"text", name:"tipo"},
                 estado:"false",
-                guardar:"false"
+                guardar:"false",
+                tipos:[]
             }
         },
         methods:{
             irCrearOferta(){
                 this.$store.commit('setInmueble', this.inmueble); 
                 this.$router.push("/Registraroferta"); 
+            },
+            asignarToken(){
+                this.token = getToken()
+            },
+            async getTipos(){
+                const toast = useToast()
+                const response = await api.get("/api/private/properties/types", this.token)
+                if(response.success){
+                    this.tipos = response.data
+                }else{
+                    toast.error("No se encontraron tipos")
+                }
+            },
+            async guardarInmueble(){
+                const toast = useToast()
+                const response = await api.put("/api/private/properties/update/"+this.inmueble['id'],this.actualizarDatos() ,this.token)
+                if(response.success){
+                    toast.success("Se actualizó la información del inmueble :"+this.inmueble['id'])
+                }else{
+                    toast.error("No se pudo Actualizar el inmueble")
+                }
+            },
+            actualizarDatos(){
+                const inmueble = {
+                    "neighborhood-id": this.inmueble['neighborhood']['id'],
+                    "type-id":  this.$refs.type.value,
+                    "address": this.inmueble['address'] ,
+                    "observations":  this.$refs.observations.value
+                }
+                console.log(inmueble)
+                return inmueble
             }
+        },
+        mounted(){
+            this.asignarToken()
+            this.getTipos()
         },
         computed:{
             ...mapState(['inmueble'])

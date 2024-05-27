@@ -37,11 +37,17 @@
 <script>
     import VentanaInmueble from '@/components/VentanaInmueble.vue';
     import AgregarButton from '@/common/AgregarButton.vue';
+    import { getToken } from '@/util/auth';
+    import api from '@/services/api';
+    import { useToast } from "vue-toastification";
+    import "vue-toastification/dist/index.css";
 
     export default {
         name:"InmuebleView",
         mounted(){
             this.enviarTitulo()
+            this.asignarToken()
+            this.getInmuebles()
         },
         components:{
             VentanaInmueble,
@@ -54,19 +60,24 @@
             limpiar(){
                 const cliente = null;
                 this.$store.commit('setCliente', cliente); 
+            },
+            asignarToken(){
+                this.token = getToken();
+            },
+            async getInmuebles(){
+                const toast = useToast();
+                const response = await api.get("/api/private/properties/search/all", this.token)
+                if(response){
+                    this.inmuebles = response.data
+                }else{
+                    toast.error("No se encontraron inmuebles registrados")
+                }
             }
         },
         data(){
             return{
-                inmuebles :[
-                    {id:"145-894" , barrio:"Las delicias", direccion:'cra 33 #59-77',
-                    propietario:'Greison Rey Castilla Carmona', tipo:"vivienda", descripcion:"Hermosa vivienda de dos pisos, 5 habitaciones, 1 sala, 2 baños, sala de descanso",
-                    src: require('@/assets/inmuebles/inmueble (0).webp') },
-                    {id:"145-512", barrio:'Bocagrande', direccion:'cll50 #46-81',
-                    propietario:'Marco Antonio Solis', tipo: "vivienda",
-                    src: require('@/assets/inmuebles/inmueble (1).webp'),},
-                    
-                ]
+                inmuebles:[],
+                token:""
             }
         }
     }

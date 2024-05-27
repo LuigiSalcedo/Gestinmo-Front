@@ -2,12 +2,13 @@
     
     <div @click="irDetalleInmueble" class="ventana-inmueble">
 
-        <img v-if="inmueble.src" :src=inmueble.src width="160px"  :alt="inmueble.nombre">
+        <img v-if="inmueble.src!=null" :src=inmueble.src width="160px"  :alt="inmueble.nombre">
+        <img v-else src="@/assets/simbolos/default.png" width="160px" alt="">
         <div class="inmueble-descripcion">
-            <p>{{ inmueble.id }}</p>
-            <p>{{ inmueble.barrio }}</p>
-            <p>{{ inmueble.direccion }}</p>
-            <p>{{ inmueble.propietario }}</p>
+            <p>{{ inmueble['id'] }}</p>
+            <p>{{ inmueble['neighborhood']['name'] }}</p>
+            <p>{{ inmueble['address'] }}</p>
+            <p>{{ inmueble['clientOwner']['name'] }}</p>
         </div>
     </div>
 

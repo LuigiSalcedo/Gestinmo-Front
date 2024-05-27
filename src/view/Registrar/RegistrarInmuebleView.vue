@@ -5,20 +5,27 @@
        <form class="flex-column" action="">
 
         <div class="flex-row-30gap">
-            <InputForm ref="inputForm" v-if="cliente != null" :input="propietario" :datos="cliente.id"/>
-            <InputForm ref="inputForm" v-else :input="propietario"/>
+            <InputForm ref="ownerId" v-if="cliente != null" :input="propietario" :datos="cliente.id"/>
+            <InputForm ref="ownerId" v-else :input="propietario"/>
             <p class="label-bold-17-start">Ó</p>
             <router-link to="/RegistrarCliente" style="height: 20px; padding-top: px;" class="router-button">Registrar Cliente</router-link>
         </div>
         
 
             <div class="flex-row-30gap">
-                <InputForm ref="inputForm" v-for="input in inputs" :key="input" :input="input"/>
+                <InputForm ref="address" :input="direccion"/>
+                <select ref="neighborhood" name="barrios" id="barrio">
+                    <option  v-for="barrio in barrios" :key="barrio" :value="barrio['id']">{{barrio['name']}}</option>
+                </select>
+                <select ref="type" name="tipos" id="tipos">
+                    <option  v-for="tipo in tipos" :key="tipo" :value="tipo['id']">{{tipo['name']}}</option>
+                </select>
+
             </div>
             <br>
             <div class="flex-column">
                 <label for="descripcion" class="label-bold-17-start">Descripción</label>
-                <textarea name="descripcion" id="descripcion" cols="40" rows="5" required></textarea>
+                <textarea ref="observations" name="descripcion" id="descripcion" cols="40" rows="5" required></textarea>
 
             </div>
             <div class="flex-row-30gap">
@@ -36,7 +43,7 @@
             </div>
             <br>
             <div class="flex-align-left">
-                <button @click.prevent="registrar" style="height: 38px;">Registrar</button>
+                <button @click.prevent="registrarInmueble()" style="height: 38px;">Registrar</button>
             </div>
        </form>
     </div>
@@ -44,8 +51,12 @@
 </template>
 
 <script>
-import InputForm from '@/common/InputForm.vue'
-import { mapState } from 'vuex';
+    import InputForm from '@/common/InputForm.vue'
+    import api from '@/services/api';
+    import { mapState } from 'vuex';
+    import { useToast } from "vue-toastification";
+    import "vue-toastification/dist/index.css";
+    import { getToken } from '@/util/auth';
 
     export default{
         name: 'RegistrarInmuebleView',
@@ -55,25 +66,62 @@ import { mapState } from 'vuex';
         data(){
             return{
                 propietario:{nombre: "Id propietario", tipo:"Text", name:"propietario"},
-                inputs :[
-                    {nombre: "Id Inmueble", tipo:"Text", name:"idInmueble"},
-                    {nombre: "Dirección", tipo:"Text", name:"direccion"},
-                ]
+                direccion: {nombre: "Dirección", tipo:"Text", name:"direccion"},
+                token:"",
+                barrios:[],
+                tipos:[]
             }
+        },
+        mounted(){
+            this.asignarToken()
+            this.getBarrios()
+            this.getTipos()
         },
         computed:{
             ...mapState(['cliente'])
         },
         methods:{
-            registrar(){
-                this.valoresInput = this.$refs.inputForm.map(child => child.getInputValues())
+            async getBarrios(){
+                const toast = useToast()
+                const response = await api.get("/api/private/properties/neighborhoods", this.token)
+                if(response.success){
+                    this.barrios = response.data
+                }else{
+                    toast.error("No se encontraron barrios")
+                }
+            },
+            async getTipos(){
+                const toast = useToast()
+                const response = await api.get("/api/private/properties/types", this.token)
+                if(response.success){
+                    this.tipos = response.data
+                }else{
+                    toast.error("No se encontraron barrios")
+                }
+            },
+            asignarToken(){
+                this.token = getToken();
+            },
+
+            async registrarInmueble(){
+                const toast = useToast()
+                const response = await api.post("/api/private/properties/save", this.actualizarDatos(), this.token)
+                if(response.success){
+                    toast.success("El inmueble se registro correctamente")
+                }else{
+                    toast.error("No se pudo registrar el inmueble")
+                }
+            },
+            actualizarDatos(){
                 const inmueble = {
-                    "propietario":this.valoresInput[0],
-                    "id":this.valoresInput[1],
-                    "barrio":this.valoresInput[2],
-                    "Direccion":this.valoresInput[3]
+                    "neighborhood-id": this.$refs.neighborhood.value,
+                    "type-id":  this.$refs.type.value,
+                    "owner-id":  this.$refs.ownerId.getInputValues(),
+                    "address": this.$refs.address.getInputValues() ,
+                    "observations":  this.$refs.observations.value
                 }
                 console.log(inmueble)
+                return inmueble
             }
         }
     }
