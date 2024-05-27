@@ -4,21 +4,22 @@
         <br>
 
         <div class="flex-row-30gap">
-            <input class="buscar" name="buscar" type="text">
+            <input class="buscar" name="buscar" type="text" v-model="filterValue">
 
             <fieldset>
                 <legend>Tipo de busqueda</legend>
                 <div class="flex-row-10gap">
-                    <input type="radio" name="tipo" value="nombre" checked>
+                    <input type="radio" name="tipo" value="name" v-model="selectedType" checked>
                     <label for="tipo" class="label-bold-10-start">Nombre</label>
                 </div>
                 <div class="flex-row-10gap">
-                    <input type="radio" name="tipo" value="id">
+                    <input type="radio" name="tipo" value="id" v-model="selectedType">
                     <label for="tipo" class="label-bold-10-start">Identificación</label>
                 </div>
                 
             </fieldset>
-            
+            <button :onClick="filtrar">Buscar</button>
+            <button :onClick="getCliente">Limpiar filtros</button>
         </div>
     </div>
     <div class="flex-p10-g20">
@@ -47,8 +48,10 @@
         name:"ClientesView",
         data(){
             return{
-                clientes :[],
-                token:""
+                clientes: [],
+                token:"",
+                filterValue: "",
+                selectedType: 'name'
             }
         },
         mounted(){
@@ -73,6 +76,21 @@
             asignarToken(){
                 this.token = getToken();
             },
+            async filtrar() {
+                let endpoint = '/api/private/clients/search/' + this.selectedType + "/" + this.filterValue;
+                const response = await api.get(endpoint, this.token);
+                const toast = useToast();
+                if(response.statusCode > 204) {
+                    toast.error("Cliente no encontrado");
+                }
+                if(this.selectedType == 'id') {
+                    this.clientes = [];
+                    this.clientes.push(response.data);
+                }
+                else if(this.selectedType == 'name') {
+                    this.clientes = response.data;
+                }
+            }
         }
     }
 
