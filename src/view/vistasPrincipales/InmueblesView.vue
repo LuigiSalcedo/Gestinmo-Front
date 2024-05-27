@@ -73,6 +73,7 @@
                     toast.error("No se encontraron inmuebles registrados")
                 }
             }
+            
         },
         data(){
             return{

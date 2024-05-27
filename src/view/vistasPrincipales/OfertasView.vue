@@ -1,72 +1,49 @@
 <template>
-    <div  class="flex-column-bgblue-pd30">
-        <label for="buscar" class="label-bold-17-start">Buscar</label>
-        <br>
-
-        <div class="flex-row-30gap">
-            <input class="buscar" name="buscar" type="text">
-
-            <fieldset>
-                <legend>Tipo de busqueda</legend>
-                <div class="flex-row-10gap">
-                    <input type="radio" name="tipo" value="Barrio" checked>
-                    <label for="tipo" class="label-bold-10-start">Barrio</label>
-                </div>
-                <div class="flex-row-10gap">
-                    <input type="radio" name="tipo" value="id">
-                    <label for="tipo" class="label-bold-10-start">Identificación</label>
-                </div>
-                <div class="flex-row-10gap">
-                    <input type="radio" name="tipo" value="IdInmueble">
-                    <label for="tipo" class="label-bold-10-start">Id Inmueble</label>
-                </div>
-            </fieldset>
-            
-        </div>
-    </div>
     <div class="flex-p10-g20">
-        <AgregarButton @click="limpiar" ruta="/RegistrarOferta" width="160px"/>
-        <ventana-oferta v-for="oferta in ofertas" :key="oferta" :oferta="oferta"/>
+        <ventana-oferta :oferta="offers"/>
     </div>
+
 </template>
 <script>
-    import AgregarButton from '@/common/AgregarButton.vue';
     import VentanaOferta from '@/components/VentanaOferta.vue';
+    import api from '@/services/api';
+    import { getToken } from '@/util/auth';
+    import { useToast } from "vue-toastification";
+    import "vue-toastification/dist/index.css";
 
     export default {
         name:"InmuebleView",
         mounted(){
-            this.enviarTitulo()
+            this.asignarToken()
+            this.getOffers()
         },
         components:{
-            AgregarButton,
             VentanaOferta
         },
+        props:{
+            propertyId:String
+        },
         methods:{
-            enviarTitulo(){
-                this.$emit('titulo-enviado',"Ofertas");
-            },
             limpiar(){
                 const cliente = null;
                 this.$store.commit('setCliente', cliente); 
+            },
+            asignarToken(){
+                this.token = getToken();
+            },
+            async getOffers(){
+                const toast = useToast()
+                const response = await api.get("/api/private/offers/search/property/"+this.propertyId, this.token)
+                if(response.success){
+                    this.offers = response.data
+                }else{
+                    toast.error("No se encontraron ofertas asociadas al inmueble")
+                }
             }
         },
         data(){
             return{
-                ofertas :[
-                    {id:'1',
-                    inmueble: {id:"145-894" , barrio:"Las delicias", direccion:'cra 33 #59-77',
-                    propietario:'Greison Rey Castilla Carmona', tipo:"vivienda", descripcion:"Hermosa vivienda de dos pisos, 5 habitaciones, 1 sala, 2 baños, sala de descanso",
-                    src: require('@/assets/inmuebles/inmueble (0).webp') }, 
-                    estado:true, 
-                    fecha:"2024-05-24", 
-                    precio:"300000000",
-                    captacion:"Venta-Casa"},
-                    {id:"2",inmueble: {id:"145-512", barrio:'Bocagrande', direccion:'cll50 #46-81',
-                    propietario:'Marco Antonio Solis', tipo: "vivienda",
-                    src: require('@/assets/inmuebles/inmueble (1).webp'),}, estado:false, fecha:"2024-05-24", precio:"250000000", captacion:"Venta-Casa"},
-                    
-                ]
+                offers :[]
             }
         }
     }

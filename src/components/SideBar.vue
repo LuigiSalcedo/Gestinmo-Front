@@ -12,11 +12,26 @@
                 class="elemento-lista">
                 {{ route.name }}
             </router-link>
-            
+            <router-link  
+                v-if="sesion()"
+                to="/desktop"
+                class="elemento-lista">
+                Login
+            </router-link>
+            <router-link  
+                v-else
+                style="background-color: red;"
+                to="/"
+                @click=" cerrarSesion()"
+                class="elemento-lista">
+                Salir de la cuenta
+            </router-link>
     </div>
 </template>
 
 <script>
+import { getToken, removeToken } from '@/util/auth';
+
 
     export default{
         name: "SideBar",
@@ -28,14 +43,20 @@
                 routes: [
                     {name: 'Clientes', path: '/Clientes' },
                     {name: 'Inmuebles', path: '/Inmuebles' },
-                    {name:'Ofertas', path:'/Ofertas'},
-                    {name: 'Login', path:'/Login'}
-                ]
+                ],
+                login: {name: 'Login', path:'/Login'}
             };
         },
         methods:{
             enviarTitulo(titulo){
                 this.$emit('titulo-enviado', titulo);
+            },
+            sesion(){
+                return getToken()==null
+            },
+            cerrarSesion(){
+                removeToken()
+                location.reload();
             }
         }
         

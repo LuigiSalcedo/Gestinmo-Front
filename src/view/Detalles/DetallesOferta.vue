@@ -1,48 +1,37 @@
 <template>
-    <h2>Oferta: {{ oferta.id }}</h2>
+    <h2>Oferta: {{ oferta['id'] }}</h2>
     <div class="flex-column-bgblue-pd30">
         <div class="flex-row-30gap">
         
         <div class="div-parrafo-blanco">
             
-            <p class="label-bold-17-start">{{ oferta.captacion }}: {{ oferta.inmueble.barrio }} ({{ oferta.inmueble.id }})</p>
+            <p class="label-bold-17-start">{{ oferta["catchmentType"]['name'] }}: {{ oferta['property']['neighborhood']['name'] }}</p>
             <p class="label-bold-17-start">Propietario</p>
-            {{oferta.inmueble.propietario}}
+            {{oferta['property']['neighborhood']['name']}}
             <p class="label-bold-17-start">Descripción</p>
-            {{ oferta.inmueble.descripcion }}
+            {{ oferta['property']['observations'] }}
     
             <div class="flex-row-30gap">
                 <div class="flex-column">
                     <p class="label-bold-17-start">Barrio</p>
-                    {{ oferta.inmueble.barrio }}
+                    {{ oferta['property']['neighborhood']['name'] }}
                 </div>
                 <div class="flex-column">
                     <p class="label-bold-17-start">Dirección</p>
-                    {{ oferta.inmueble.direccion }}
+                    {{ oferta['property']['address'] }}
                 </div>
             </div>
             
             <p class="label-bold-17-start">Precio</p>
-            ${{oferta.precio}}
+            {{oferta['price']}}
             <br>
         </div>
-            <img :src="oferta.inmueble.src" width="600px" alt="">
+            
         </div>
         <br>
         <br>
-        <form class="flex-row-30gap" action="">
-            <InputForm :input="precio" :datos="oferta.precio" :estado="estado"/>
-            <InputForm :input="captacion" :datos="oferta.captacion" :estado="estado"/>
-            <select name="Estado" id="estado" :disabled="estado" required>
-                <option value="Activo">Activo</option>
-                <option value="Inactivo">Inactivo</option>
-            </select>
-            <button :disabled="guardar" style="height: 38px;">Guardar</button>
-       </form>
-       <br>
        <div class="flex-row-30gap">
-            <Button @click="estado=!estado; guardar = !guardar" >Editar</Button>
-            <button class="eliminar">Eliminar</button>
+            <button @click="eliminar()" class="eliminar">Eliminar</button>
        </div>
        
     </div>
@@ -50,24 +39,45 @@
 </template>
 
 <script>
+import api from '@/services/api';
+import { getToken } from '@/util/auth';
 import { mapState } from 'vuex'
-import InputForm from "@/common/InputForm.vue";
+    import { useToast } from "vue-toastification";
+    import "vue-toastification/dist/index.css";
 
     export default{
         name: "DetallesOferta",
         components:{
-            InputForm
         },
         data(){
             return{
                 precio: {nombre: "Precio", tipo:"Number", name:"precio"},
                 captacion: {nombre: "Captación", tipo:"Text", name:"captacion"},
                 estado:"false",
-                guardar:"false"
+                guardar:"false",
+                token:""
             }
         },
         computed:{
             ...mapState(["oferta"])
+        },
+        mounted(){
+            this.asignarToken()
+        },
+        methods:{
+            async eliminar(){
+                const toast = useToast()
+                const response = await api.delete("/api/private/offers/delete/"+this.oferta['id'], this.token)
+                if(response.success){
+                    toast.success("Se elimino la oferta correctamente")
+                    this.$router.push("/Inmuebles")
+                }else{
+                    toast.error("no se pudo eliminar la oferta")
+                }
+            },
+            asignarToken(){
+                this.token = getToken()
+            }
         }
     }
 </script>
