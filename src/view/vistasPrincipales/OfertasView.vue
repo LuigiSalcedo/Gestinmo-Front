@@ -2,6 +2,12 @@
     <div class="flex-p10-g20">
         <ventana-oferta :oferta="offers"/>
     </div>
+    <button :onClick="abrirHistorial">Ver historial de ofertas</button>
+    <div v-if="showHistory">
+        <div v-for="offer in offersHistory" :key="offer">
+            <ventana-oferta :oferta="offer"/>
+        </div>
+    </div>
 
 </template>
 <script>
@@ -39,11 +45,30 @@
                 }else{
                     toast.error("No se encontraron ofertas asociadas al inmueble")
                 }
+            },
+            async abrirHistorial() {
+                this.showHistory = !this.showHistory;
+                if(this.showHistory) {
+                    await this.getOffersHistory();
+                }
+            },
+            async getOffersHistory() {
+                const toast = useToast();
+                const response = await api.get("/api/private/offers/search/property/"+this.propertyId+"/history", this.token);
+                console.log(response);
+                if(response.success){
+                    this.offersHistory = response.data
+                    console.log(response.data);
+                }else{
+                    toast.error("No se encontraron ofertas asociadas al inmueble")
+                }
             }
         },
         data(){
             return{
-                offers :[]
+                offers :[],
+                offersHistory: [],
+                showHistory: false,
             }
         }
     }

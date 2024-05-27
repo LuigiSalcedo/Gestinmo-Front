@@ -67,7 +67,7 @@ import { mapState } from 'vuex'
         methods:{
             async eliminar(){
                 const toast = useToast()
-                const response = await api.delete("/api/private/offers/delete/"+this.oferta['id'], this.token)
+                const response = await api.delete("/api/private/offers/delete/"+this.oferta["id"], this.token)
                 if(response.success){
                     toast.success("Se elimino la oferta correctamente")
                     this.$router.push("/Inmuebles")

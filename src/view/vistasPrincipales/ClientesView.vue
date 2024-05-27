@@ -85,6 +85,7 @@
                 }
                 if(this.selectedType == 'id') {
                     this.clientes = [];
+                    console.log(response.data);
                     this.clientes.push(response.data);
                 }
                 else if(this.selectedType == 'name') {
