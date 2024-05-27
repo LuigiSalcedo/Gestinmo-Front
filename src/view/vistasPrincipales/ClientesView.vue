@@ -23,9 +23,9 @@
     </div>
     <div class="flex-p10-g20">
         <AgregarButton ruta="/RegistrarCliente" width="140px"/>
-
+        
         <VentanaCliente v-for="cliente in clientes" 
-        :key="cliente.id"
+        :key="cliente"
         :clienteD="cliente"
         />
     </div>
@@ -35,6 +35,7 @@
 <script>
 import VentanaCliente from '@/components/VentanaCliente.vue';
 import AgregarButton from '@/common/AgregarButton.vue';
+import api from '@/services/api';
 
     export default {
         components: { VentanaCliente,
@@ -43,18 +44,27 @@ import AgregarButton from '@/common/AgregarButton.vue';
         name:"ClientesView",
         data(){
             return{
-                clientes :[
-                    {id: '1043634932', nombre: 'Greison Rey Castilla Carmona',correo:'grisoncastilla@gmail.com', celular:'3014649618'},
-                    {id: '78902354', nombre: 'Milena Castro Hernandez',correo:'mile_C_C@gmail.com', celular:'3207152725'},
-                ]
+                clientes :[]
             }
         },
         mounted(){
-            this.enviarTitulo()
+            this.enviarTitulo(),
+            this.getCliente()
         },
         methods:{
             enviarTitulo(){
                 this.$emit('titulo-enviado',"Clientes");
+            },
+            async getCliente(){
+                const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJHZXN0aW5tbyIsInN1YiI6ImdyaXNvbmNhc3RpbGxhQGdtYWlsLmNvbSIsImlkIjoxMjM0NTY3ODkwLCJuYW1lIjoiR3JlaXNvbiBDYXN0aWxsYSBDYXJtb25hIn0.oSOn_XJUVpYLpjvX7P9G8q2745U05Ps2AWieTo32pUk"
+                try{
+                    const resultado = await api.get('/api/private/clients/search', token)
+                    this.clientes = resultado.data;
+                    console.log(this.clientes)
+                }catch(error){
+                    console.log(error)
+                }
+                
             }
         }
     }

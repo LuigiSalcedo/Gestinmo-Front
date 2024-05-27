@@ -5,11 +5,11 @@
         <form action="" class="flex-column">
             <div class="flex-row-30gap">
                 <InputForm ref="inputForm" v-for="input in inputs" :key="input" :input="input"/>
-                <button style="height: 38px;">Registrar</button>
+                <button @click.prevent="Registrar" style="height: 38px;">Registrar</button>
             </div>
             <br>
             <div class="flex-align-left">
-                <button @click="irRegistrarInmueble">Registrar cliente e inmueble</button>
+                <button @click.prevent="irRegistrarInmueble">Registrar cliente e inmueble</button>
             </div>
         </form>
 
@@ -19,37 +19,69 @@
 
 <script>
 import InputForm from "@/common/InputForm.vue";
-
+import api from "@/services/api";
+import { getToken } from "@/util/auth";
+import { useToast } from "vue-toastification";
+import "vue-toastification/dist/index.css";
 export default{
     name:'RegistrarClienteView',
     components:{
         InputForm
     },
+    mounted(){
+        this.asignarToken()
+    },
     methods:{
-        irRegistrarInmueble() {
-                this.valoresInput = this.$refs.inputForm.map(child => child.getInputValues())
-                this.cliente = {
-                    "nombre":this.valoresInput[0],
-                    "id":this.valoresInput[1],
-                    "celular":this.valoresInput[2],
-                    "email":this.valoresInput[3]
+        actualizarValores(){
+            this.valoresInput = this.$refs.inputForm.map(child => child.getInputValues())
+            this.cliente = {
+                    id:this.valoresInput[0],
+                    name:this.valoresInput[1],
+                    phoneNumber:this.valoresInput[2],
+                    email:this.valoresInput[3]
                 }
-
-                this.$store.commit('setCliente', this.cliente); 
-                this.$router.push("/RegistrarInmueble"); 
         },
+        async irRegistrarInmueble() {
+            const toast = useToast();
+            this.actualizarValores();
 
+            const response = await api.post('/api/private/clients/save', this.cliente, this.token);
+            this.$store.commit('setCliente', this.cliente); 
+                
+            if(response.success){
+                toast.success("Cliente registrado correctamente")
+                this.$router.push("/RegistrarInmueble");
+            }else{
+                toast.error("No se pudo registrar cliente")
+            }
+             
+        },
+        async Registrar(){
+            const toast = useToast();
+            this.actualizarValores();
+            const response = await api.post('/api/private/clients/save', this.cliente, this.token);
+            if(response.success){
+                toast.success("Cliente registrado correctamente")
+                
+            }else{
+                toast.error("No se pudo registrar cliente")
+            }
+        },
+        asignarToken(){
+            this.token = getToken();
+        }
     },
     data(){
         return {
             inputs :[
-                {nombre: "Nombre", tipo:"Text", name:"nombre"},
                 {nombre: "Identificación", tipo:"Text", name:"id"},
-                {nombre: "Celular", tipo:"Number", name:"celular"},
+                {nombre: "Nombre", tipo:"Text", name:"nombre"},
+                {nombre: "Celular", tipo:"Text", name:"celular"},
                 {nombre: "Correo", tipo:"email", name:"email"},
             ],
             valoresInput: [],
-            cliente: Object
+            cliente: Object,
+            token:""
         }
     }
 }

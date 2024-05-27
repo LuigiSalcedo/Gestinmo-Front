@@ -11,12 +11,12 @@
             <LogoCasaVentas tamaño="150px"/>
 
             <form action="" class="form-inicio-sesion">
-                <InputForm :input="usuario"/>
+                <InputForm ref="user" :input="usuario"/>
                 <br>
                 <br>
-                <InputForm :input="contraseña"/>
+                <InputForm ref="pass" :input="contraseña"/>
                 <br>
-                <button @click.prevent="desktop">Ingresar</button>
+                <button @click.prevent="iniciarSesion">Ingresar</button>
             </form>
         </div>
     </div>
@@ -29,6 +29,10 @@
 
 import InputForm from '@/common/InputForm.vue'
 import LogoCasaVentas from '@/common/LogoCasaVentas.vue';
+import api from '@/services/api';
+import { getToken, setToken } from '@/util/auth';
+import { useToast } from "vue-toastification";
+import "vue-toastification/dist/index.css";
 
 export default{
     name: 'LoginView',
@@ -48,6 +52,10 @@ export default{
             intervalId: null,
             usuario: {nombre: "Usuario", tipo:"Text", name:"usuario"},
             contraseña: {nombre: "Contraseña", tipo:"password", name:"password"},
+            user:{
+                login:"",
+                password: ""
+            }
         };
     },
     computed: {
@@ -57,16 +65,40 @@ export default{
     },
     mounted(){
         this.intervalId = setInterval(this.cambiarimg, 3000);
+        this.validarSesion()
     },
     beforeUnmount(){
         clearInterval(this.intervalId)
     },
     methods:{
-        desktop(){
-            this.$router.replace('/Desktop');
-        },
         cambiarimg(){
             this.indice = (this.indice + 1) % this.rutas.length;
+        },
+        actualizarValores(){
+            const user = {
+                    'login': this.$refs.user.getInputValues(),
+                    'password':this.$refs.pass.getInputValues(),
+                }
+            return user;
+        },
+        async iniciarSesion(){
+            console.log(this.actualizarValores())
+            const toast = useToast();
+            const response = await api.login("/api/public/auth/login", this.actualizarValores())
+            
+                if(response.success){
+                    console.log(response.data["token"])
+                    setToken(response.data["token"]);
+                    this.$router.push("/Clientes")
+                }else{
+                    toast.error("Usuario desconocido")
+                }
+                
+        },
+        validarSesion(){
+            if(getToken != null){
+                this.$router.push("/Clientes");
+            }
         }
     }
     

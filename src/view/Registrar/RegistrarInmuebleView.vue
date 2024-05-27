@@ -57,7 +57,6 @@ import { mapState } from 'vuex';
                 propietario:{nombre: "Id propietario", tipo:"Text", name:"propietario"},
                 inputs :[
                     {nombre: "Id Inmueble", tipo:"Text", name:"idInmueble"},
-                    {nombre: "Barrio", tipo:"Text", name:"barrio"},
                     {nombre: "Dirección", tipo:"Text", name:"direccion"},
                 ]
             }

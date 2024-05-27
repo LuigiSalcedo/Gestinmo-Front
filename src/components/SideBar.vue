@@ -29,7 +29,7 @@
                     {name: 'Clientes', path: '/Clientes' },
                     {name: 'Inmuebles', path: '/Inmuebles' },
                     {name:'Ofertas', path:'/Ofertas'},
-                    {name:'Documentos', path:'/Login'}
+                    {name: 'Login', path:'/Login'}
                 ]
             };
         },
