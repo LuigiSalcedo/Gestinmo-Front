@@ -64,7 +64,8 @@
                 propietario: {nombre: "Propietario", tipo:"text", name:"tipo"},
                 estado:"false",
                 guardar:"false",
-                tipos:[]
+                tipos:[],
+                offers:[]
             }
         },
         methods:{
@@ -119,6 +120,15 @@
                     this.$store.commit('setInmueble', null); 
                 }else{
                     toast.error("No se pudo eliminar inmueble")
+                }
+            },
+            async getOffers(){
+                const toast = useToast()
+                const response = await api.get("/api/private/offers/search/property/"+this.propertyId, this.token)
+                if(response.success){
+                    this.offers = response.data
+                }else{
+                    toast.error("No se encontraron ofertas asociadas al inmueble")
                 }
             }
         },

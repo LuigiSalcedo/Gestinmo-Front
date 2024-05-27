@@ -30,15 +30,8 @@
         </div>
         <br>
         <br>
-        <form class="flex-row-30gap" action="">
-            <InputForm :input="precio" :datos="oferta" :estado="estado"/>
-            <InputForm :input="captacion" :datos="oferta['type']" :estado="estado"/>
-            <button :disabled="guardar" style="height: 38px;">Guardar</button>
-       </form>
-       <br>
        <div class="flex-row-30gap">
-            <Button @click="estado=!estado; guardar = !guardar" >Editar</Button>
-            <button class="eliminar">Eliminar</button>
+            <button @click="eliminar()" class="eliminar">Eliminar</button>
        </div>
        
     </div>
@@ -46,24 +39,45 @@
 </template>
 
 <script>
+import api from '@/services/api';
+import { getToken } from '@/util/auth';
 import { mapState } from 'vuex'
-import InputForm from "@/common/InputForm.vue";
+    import { useToast } from "vue-toastification";
+    import "vue-toastification/dist/index.css";
 
     export default{
         name: "DetallesOferta",
         components:{
-            InputForm
         },
         data(){
             return{
                 precio: {nombre: "Precio", tipo:"Number", name:"precio"},
                 captacion: {nombre: "Captación", tipo:"Text", name:"captacion"},
                 estado:"false",
-                guardar:"false"
+                guardar:"false",
+                token:""
             }
         },
         computed:{
             ...mapState(["oferta"])
+        },
+        mounted(){
+            this.asignarToken()
+        },
+        methods:{
+            async eliminar(){
+                const toast = useToast()
+                const response = await api.delete("/api/private/offers/delete/"+this.oferta['id'], this.token)
+                if(response.success){
+                    toast.success("Se elimino la oferta correctamente")
+                    this.$router.push("/Inmuebles")
+                }else{
+                    toast.error("no se pudo eliminar la oferta")
+                }
+            },
+            asignarToken(){
+                this.token = getToken()
+            }
         }
     }
 </script>
