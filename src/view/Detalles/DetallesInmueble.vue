@@ -31,10 +31,12 @@
         <br>
        <div>
         <Button @click="estado=!estado; guardar = !guardar" style="margin-right: 20px;">Editar</Button>
-        <button class="eliminar">Eliminar</button>
-        <button @click="irCrearOferta">Crear oferta</button>
+        <button @click="eliminar()" class="eliminar">Eliminar</button>
+        <button @click="irCrearOferta()">Crear oferta</button>
        </div>
     </div>
+    <h3>Ofertas</h3>
+    <ofertasView :propertyId="inmueble['id']" />
 </template>
 
 <script>
@@ -43,13 +45,15 @@
     import api from "@/services/api";
     import { useToast } from "vue-toastification";
     import "vue-toastification/dist/index.css";
-import { getToken } from "@/util/auth";
+    import { getToken } from "@/util/auth";
+    import OfertasView from "../vistasPrincipales/OfertasView.vue";
 
 
     export default{
         name:'DetallesCliente',
         components:{
-            InputForm
+            InputForm,
+            OfertasView
         },
         data(){
             return{
@@ -83,7 +87,7 @@ import { getToken } from "@/util/auth";
             async guardarInmueble(){
                 const toast = useToast()
                 const response = await api.put("/api/private/properties/update/"+this.inmueble['id'],this.actualizarDatos() ,this.token)
-                
+
                 if(response.success){
                     const datos = this.actualizarDatos();
                     console.log(datos);
@@ -104,6 +108,18 @@ import { getToken } from "@/util/auth";
                 }
                 console.log(inmueble)
                 return inmueble
+            },
+            async eliminar(){
+                const toast = useToast()
+                const response = await api.delete("/api/private/properties/delete/"+this.inmueble['id'], this.token)
+                console.log(this.inmueble['id'])
+                if(response.success){
+                    
+                    toast.success("Se elimino correctamente el inmueble: "+ this.inmueble['id'])
+                    this.$store.commit('setInmueble', null); 
+                }else{
+                    toast.error("No se pudo eliminar inmueble")
+                }
             }
         },
         mounted(){

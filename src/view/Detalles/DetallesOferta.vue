@@ -1,42 +1,38 @@
 <template>
-    <h2>Oferta: {{ oferta.id }}</h2>
+    <h2>Oferta: {{ oferta['id'] }}</h2>
     <div class="flex-column-bgblue-pd30">
         <div class="flex-row-30gap">
         
         <div class="div-parrafo-blanco">
             
-            <p class="label-bold-17-start">{{ oferta.captacion }}: {{ oferta.inmueble.barrio }} ({{ oferta.inmueble.id }})</p>
+            <p class="label-bold-17-start">{{ oferta["catchmentType"]['name'] }}: {{ oferta['property']['neighborhood']['name'] }}</p>
             <p class="label-bold-17-start">Propietario</p>
-            {{oferta.inmueble.propietario}}
+            {{oferta['property']['neighborhood']['name']}}
             <p class="label-bold-17-start">Descripción</p>
-            {{ oferta.inmueble.descripcion }}
+            {{ oferta['property']['observations'] }}
     
             <div class="flex-row-30gap">
                 <div class="flex-column">
                     <p class="label-bold-17-start">Barrio</p>
-                    {{ oferta.inmueble.barrio }}
+                    {{ oferta['property']['neighborhood']['name'] }}
                 </div>
                 <div class="flex-column">
                     <p class="label-bold-17-start">Dirección</p>
-                    {{ oferta.inmueble.direccion }}
+                    {{ oferta['property']['address'] }}
                 </div>
             </div>
             
             <p class="label-bold-17-start">Precio</p>
-            ${{oferta.precio}}
+            {{oferta['price']}}
             <br>
         </div>
-            <img :src="oferta.inmueble.src" width="600px" alt="">
+            
         </div>
         <br>
         <br>
         <form class="flex-row-30gap" action="">
-            <InputForm :input="precio" :datos="oferta.precio" :estado="estado"/>
-            <InputForm :input="captacion" :datos="oferta.captacion" :estado="estado"/>
-            <select name="Estado" id="estado" :disabled="estado" required>
-                <option value="Activo">Activo</option>
-                <option value="Inactivo">Inactivo</option>
-            </select>
+            <InputForm :input="precio" :datos="oferta" :estado="estado"/>
+            <InputForm :input="captacion" :datos="oferta['type']" :estado="estado"/>
             <button :disabled="guardar" style="height: 38px;">Guardar</button>
        </form>
        <br>

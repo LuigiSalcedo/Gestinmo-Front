@@ -15,7 +15,7 @@ const store = createStore({
         setInmueble(state, inmueble) {
             state.inmueble = inmueble;
         },
-        setOferta(state, oferta=Object) {
+        setOferta(state, oferta) {
             state.oferta = oferta;
         }
     }

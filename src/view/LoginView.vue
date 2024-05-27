@@ -66,6 +66,7 @@ export default{
     mounted(){
         this.intervalId = setInterval(this.cambiarimg, 3000);
         this.validarSesion()
+        this.enviarTitulo()
     },
     beforeUnmount(){
         clearInterval(this.intervalId)
@@ -81,6 +82,9 @@ export default{
                 }
             return user;
         },
+        enviarTitulo(){
+                this.$emit('titulo-enviado',"Login");
+            },
         async iniciarSesion(){
             console.log(this.actualizarValores())
             const toast = useToast();
@@ -89,7 +93,7 @@ export default{
                 if(response.success){
                     console.log(response.data["token"])
                     setToken(response.data["token"]);
-                    this.$router.push("/Clientes")
+                    location.reload()
                 }else{
                     toast.error("Usuario desconocido")
                 }

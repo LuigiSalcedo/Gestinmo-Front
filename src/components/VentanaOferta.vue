@@ -1,15 +1,10 @@
 <template>
     
     <div @click="irOferta" class='ventana-inmueble'>
-
-        <img v-if="oferta.inmueble.src!=null" :src=oferta.inmueble.src width="160px"  :alt="oferta.inmueble.id">
         <div class="inmueble-descripcion">
-            <p>{{oferta.id}}</p>
-            <p v-if="oferta.estado">Activo</p>
-            <p v-else>Inactivo</p>
-            <p>{{ oferta.inmueble.barrio }}</p>
-            <p>{{ oferta.inmueble.direccion }}</p>
-            <p>${{ oferta.precio }}</p>
+            <p>{{ oferta['id'] }}</p>
+            <p>{{ oferta['creationDate'] }}</p>
+            <p>{{ oferta["price"] }}</p>
         </div>
     </div>
 
@@ -19,13 +14,7 @@
     export default{
         name: "VentanaInmueble",
         props:{
-            oferta:{
-                id:String,
-                inmueble:Object,
-                estado: Boolean,
-                fecha: String,
-                precio: String
-            },
+            oferta:[],
         },
         data(){
             return this.oferta;

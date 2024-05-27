@@ -46,10 +46,11 @@ export default{
             this.actualizarValores();
 
             const response = await api.post('/api/private/clients/save', this.cliente, this.token);
-            this.$store.commit('setCliente', this.cliente); 
+            
                 
             if(response.success){
                 toast.success("Cliente registrado correctamente")
+                this.$store.commit('setCliente', this.cliente); 
                 this.$router.push("/RegistrarInmueble");
             }else{
                 toast.error("No se pudo registrar cliente")
@@ -62,7 +63,6 @@ export default{
             const response = await api.post('/api/private/clients/save', this.cliente, this.token);
             if(response.success){
                 toast.success("Cliente registrado correctamente")
-                
             }else{
                 toast.error("No se pudo registrar cliente")
             }
