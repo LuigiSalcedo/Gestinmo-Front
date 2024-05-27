@@ -24,7 +24,7 @@
             </div>
             <br>
             <div class="flex-align-left">
-                <button @click="guardarInmueble" :disabled="guardar">Guardar</button>
+                <button @click.prevent="guardarInmueble" :disabled="guardar">Guardar</button>
             </div>
             
        </form>
@@ -83,8 +83,14 @@ import { getToken } from "@/util/auth";
             async guardarInmueble(){
                 const toast = useToast()
                 const response = await api.put("/api/private/properties/update/"+this.inmueble['id'],this.actualizarDatos() ,this.token)
+                
                 if(response.success){
+                    const datos = this.actualizarDatos();
+                    console.log(datos);
                     toast.success("Se actualizó la información del inmueble :"+this.inmueble['id'])
+                    this.inmueble["type-id"] = datos["type-id"];
+                    this.inmueble['type-id'] = datos['type-id']
+                    this.$store.commit('setInmueble', this.inmueble);
                 }else{
                     toast.error("No se pudo Actualizar el inmueble")
                 }
