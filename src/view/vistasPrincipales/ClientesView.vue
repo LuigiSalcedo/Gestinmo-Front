@@ -71,7 +71,7 @@
                 }else{
                     toast.error("No se encontraron clientes registrados")
                 }
-                
+                this.filterValue = "";
             },
             asignarToken(){
                 this.token = getToken();
@@ -82,11 +82,12 @@
                 const toast = useToast();
                 if(response.statusCode > 204) {
                     toast.error("Cliente no encontrado");
+                    return;
                 }
                 if(this.selectedType == 'id') {
-                    this.clientes = [];
-                    console.log(response.data);
-                    this.clientes.push(response.data);
+                    toast.success("Cliente encontrado");
+                    this.$store.commit('setCliente', response.data);
+                    this.$router.push(`/Clientes/${response.data.id}`); 
                 }
                 else if(this.selectedType == 'name') {
                     this.clientes = response.data;
