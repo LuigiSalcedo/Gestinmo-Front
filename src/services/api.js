@@ -42,6 +42,19 @@ const handleResponse = async (response) => {
         return handleResponse(response);
       
     },
+    get_without_format: async (endpoint, token) => {
+
+      const response = await fetch(`${baseURL}${endpoint}`, {
+        method: 'GET',
+        headers:{
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+          'accept': '*/*'
+        }
+      })
+      return response;
+    
+  },
   
     post_file: async (endpoint, body, token) => {
       const response = await fetch(`${baseURL}${endpoint}`, {
