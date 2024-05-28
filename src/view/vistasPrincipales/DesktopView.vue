@@ -1,7 +1,7 @@
 <template>
     <div class="desktop-view">
 
-        <SideBar nombre="Juana de arco" @titulo-enviado = "actualizarTitulo"/>
+        <SideBar :nombre="nombre" @titulo-enviado = "actualizarTitulo"/>
         <div class="contenido">
             <EncabezadoGeneral :titulo="titulo"/>
             <router-view @titulo-enviado="actualizarTitulo"/>
@@ -22,12 +22,14 @@
         },
         data (){
             return{
-                titulo: 'Bienvenido'
+                titulo: 'Bienvenido',
+                nombre: 'Asesor'
             };
         },
         methods:{
             actualizarTitulo(titulo){
                 this.titulo = titulo;
+                this.nombre = localStorage.getItem("nombre");
             }
         }
     }

@@ -37,6 +37,8 @@
     </div>
     <h3>Ofertas</h3>
     <ofertasView :propertyId="inmueble['id']" />
+    <h3>Documentos</h3>
+    <DetallesDocumentos :inmueble="inmueble"/>
 </template>
 
 <script>
@@ -47,13 +49,14 @@
     import "vue-toastification/dist/index.css";
     import { getToken } from "@/util/auth";
     import OfertasView from "../vistasPrincipales/OfertasView.vue";
-
+    import DetallesDocumentos from "./DetallesDocumentos.vue";
 
     export default{
         name:'DetallesCliente',
         components:{
             InputForm,
-            OfertasView
+            OfertasView,
+            DetallesDocumentos
         },
         data(){
             return{

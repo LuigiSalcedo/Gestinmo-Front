@@ -2,7 +2,7 @@
     <div class="toolbar">
 
         <div class="sesion">
-            <img src="@\assets\retratos\Designer.jpeg" class="persona">
+            <img src="@\assets\simbolos\perfil-de-usuario.png" class="persona">
             <p>{{nombre}}</p>
         </div>
             <router-link  v-for="route in routes"
@@ -55,7 +55,8 @@ import { getToken, removeToken } from '@/util/auth';
                 return getToken()==null
             },
             cerrarSesion(){
-                removeToken()
+                removeToken();
+                localStorage.setItem("nombre", "Asesor");
                 location.reload();
             }
         }

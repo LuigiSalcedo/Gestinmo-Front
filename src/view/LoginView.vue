@@ -93,6 +93,7 @@ export default{
                 if(response.success){
                     console.log(response.data["token"])
                     setToken(response.data["token"]);
+                    localStorage.setItem("nombre", response.data["name"]);
                     location.reload()
                 }else{
                     toast.error("Usuario desconocido")

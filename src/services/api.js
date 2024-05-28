@@ -43,6 +43,17 @@ const handleResponse = async (response) => {
       
     },
   
+    post_file: async (endpoint, body, token) => {
+      const response = await fetch(`${baseURL}${endpoint}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'accept': '*/*'
+        },
+        body: body,
+      });
+      return handleResponse(response);
+    },
     post: async (endpoint, data, token) => {
       const response = await fetch(`${baseURL}${endpoint}`, {
         method: 'POST',
@@ -54,7 +65,8 @@ const handleResponse = async (response) => {
         body: JSON.stringify(data),
       });
       return handleResponse(response);
-    },
+    }
+    ,
 
     login: async(endpoint, data)=>{
         const response = await fetch(`${baseURL}${endpoint}`, {
