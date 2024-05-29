@@ -3,7 +3,9 @@
     <button :onClick="subirArchivo">Subir archivo</button>
     <h3>Documentos disponibles</h3>
     <div class="flex-row-gap30" v-for="document in documents" :key="document">
-        <VentanaDocumento @delete="eliminarDocumento" :nombre="document"/>
+        <VentanaDocumento
+         @download="descargarDocumento"
+         @delete="eliminarDocumento" :nombre="document"/>
     </div>
 </template>
 <script setup>
@@ -59,6 +61,25 @@ const eliminarDocumento = async (nombreDocumento) => {
     toast.success("Archivo elimnado correctamente")
     await obtenerArchivos()
 }
+
+const descargarDocumento = async (nombreDocumento)  => {
+    const toast = useToast()
+    const endpoint = "/api/private/documents/search/" + props.inmueble.id + "/" + nombreDocumento
+    const serverResponse = await api.get_without_format(endpoint, getToken())
+    if(serverResponse.status > 204) {
+        toast.error("Parece que ocurrió un error descargando el archivo")
+        return
+    }
+    const blob = await serverResponse.blob()
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', nombreDocumento);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+}   
 
 const handleFileChange = (event) => {
       file.value = event.target.files[0];

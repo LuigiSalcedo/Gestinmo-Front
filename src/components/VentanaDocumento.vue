@@ -1,6 +1,6 @@
 <template>
     <label>{{ props.nombre }}</label>
-    <button>Descargar</button>
+    <button @click="descargarDocumento">Descargar</button>
     <button @click="eliminarDocumento" class="eliminar">Eliminar</button>
 </template>
 <script setup>
@@ -12,10 +12,14 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['delete'])
+const emit = defineEmits(['delete', 'download'])
 
 const eliminarDocumento = () => {
     emit('delete', props.nombre)
+}
+
+const descargarDocumento = () => {
+    emit('download', props.nombre)
 }
 
 </script>
