@@ -3,7 +3,7 @@
     <button :onClick="subirArchivo">Subir archivo</button>
     <h3>Documentos disponibles</h3>
     <div class="flex-row-gap30" v-for="document in documents" :key="document">
-        <VentanaDocumento :nombre="document"/>
+        <VentanaDocumento @delete="eliminarDocumento" :nombre="document"/>
     </div>
 </template>
 <script setup>
@@ -23,14 +23,12 @@ const props = defineProps({
     }
 });
 let obtenerArchivos = async () => {
-    const toast = useToast();
-    console.log(props.inmueble);
     const response = await api.get("/api/private/documents/search/" + props.inmueble.id, getToken());
-    if (response.success) {
-        toast.success("Se cargaronn los documentos de inmueble.")
+    if (!response.success) {
+        document.value = []
+        return
     }
     documents.value = response.data;
-    console.log(documents.value);
 }
 
 let subirArchivo = async () => {
@@ -48,6 +46,18 @@ let subirArchivo = async () => {
     }
     toast.success("El archivo se subió correctamente");
     await obtenerArchivos();
+}
+
+const eliminarDocumento = async (nombreDocumento) => {
+    const toast = useToast()
+    const endpoint = "/api/private/documents/delete/" + props.inmueble.id + "/" + nombreDocumento
+    const serverResponse = await api.delete(endpoint, getToken())
+    if(serverResponse > 204) {
+        toast.error("Ocurrió un error al eliminar el archivo")
+        return
+    }
+    toast.success("Archivo elimnado correctamente")
+    await obtenerArchivos()
 }
 
 const handleFileChange = (event) => {

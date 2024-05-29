@@ -1,17 +1,23 @@
 <template>
     <label>{{ props.nombre }}</label>
     <button>Descargar</button>
-    <button class="eliminar">Eliminar</button>
+    <button @click="eliminarDocumento" class="eliminar">Eliminar</button>
 </template>
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, defineEmits } from 'vue';
 const props = defineProps({
     nombre: {
         required: true,
         type: String
     }
 })
-console.log(props.nombre);
+
+const emit = defineEmits(['delete'])
+
+const eliminarDocumento = () => {
+    emit('delete', props.nombre)
+}
+
 </script>
 <style scoped>
 </style>

@@ -16,7 +16,6 @@
 import VentanaOferta from '@/components/VentanaOferta.vue';
 import api from '@/services/api';
 import { getToken } from '@/util/auth';
-import { useToast } from "vue-toastification";
 import "vue-toastification/dist/index.css";
 
 export default {
@@ -40,12 +39,9 @@ export default {
             this.token = getToken();
         },
         async getOffers() {
-            const toast = useToast()
             const response = await api.get("/api/private/offers/search/property/" + this.propertyId, this.token)
             if (response.success) {
                 this.offer = response.data
-            } else {
-                toast.error("No se encontraron ofertas asociadas al inmueble")
             }
         },
         async abrirHistorial() {
@@ -55,14 +51,9 @@ export default {
             }
         },
         async getOffersHistory() {
-            const toast = useToast();
             const response = await api.get("/api/private/offers/search/property/" + this.propertyId + "/history", this.token);
-            console.log(response);
             if (response.success) {
                 this.offersHistory = response.data
-                console.log(response.data);
-            } else {
-                toast.error("No se encontraron ofertas asociadas al inmueble")
             }
         }
     },
