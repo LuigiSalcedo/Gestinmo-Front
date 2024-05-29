@@ -47,7 +47,6 @@ let subirArchivo = async () => {
         return;
     }
     toast.success("El archivo se subió correctamente");
-    console.log(serverResponse);
     await obtenerArchivos();
 }
 

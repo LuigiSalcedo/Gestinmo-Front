@@ -96,7 +96,6 @@
 
                 if(response.success){
                     const datos = this.actualizarDatos();
-                    console.log(datos);
                     toast.success("Se actualizó la información del inmueble :"+this.inmueble['id'])
                     this.inmueble["type-id"] = datos["type-id"];
                     this.inmueble['type-id'] = datos['type-id']
@@ -112,11 +111,9 @@
                     "address": this.inmueble['address'] ,
                     "observations":  this.$refs.observations.value
                 }
-                console.log(inmueble)
                 return inmueble
             },
             async eliminar(){
-                console.log(this.inmueble)
                 const toast = useToast()
                 const response = await api.delete("/api/private/properties/delete/"+this.inmueble['id'], this.token)
                 if(response.success){

@@ -21,7 +21,6 @@
         },
         methods:{
             irOferta() {
-                console.log(this.oferta)
                 this.$store.commit('setOferta', this.oferta); 
                 this.$router.push(`/Ofertas/${this.oferta.id}`); 
             }

@@ -41,7 +41,6 @@
                 }
                 const blob = await serverResponse.blob();
                 this.imagen = URL.createObjectURL(blob);
-                console.log(this.imagen)
             },
         }
     }
