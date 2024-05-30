@@ -29,20 +29,17 @@
 
             </div>
             <div class="flex-row-30gap">
+                
                 <div class="flex-column-bgblue-pd30">
-                    <label for="documentos" class="label-bold-17-start">Documentos</label>
+                    <label for="imagenes" class="label-bold-17-start">Imagen representativa</label>
                     <br>
-                    <input type="file" name="documentos" required>
-                </div>
-                <div class="flex-column-bgblue-pd30">
-                    <label for="imagenes" class="label-bold-17-start">Imágenes</label>
-                    <br>
-                    <input type="file" name="imagenes" required>
+                    <input type="file" name="imagenes" accept="image/*" required>
                 </div>
                 
             </div>
             <br>
-            <div class="flex-align-left">
+            <div class="flex-row-30gap">
+                <button @click.prevent="$router.go(-1)" >Volver</button>
                 <button @click.prevent="registrarInmueble()" style="height: 38px;">Registrar</button>
             </div>
        </form>

@@ -10,10 +10,11 @@
             <button @click.prevent="guardarDatos()" :disabled="guardar" style="height: 38px;">Guardar</button>
        </form>
        <br>
-       <div>
-        <Button @click="estado=!estado; guardar = !guardar" style="margin-right: 20px;">Editar</Button>
-        <button @click="eliminar" class="eliminar">Eliminar</button>
-        <button @click="irRegistrarInmueble">Registrar inmueble</button>
+       <div class="flex-row-30gap" >
+            <button @click="$router.go(-1)" >Volver</button>
+            <Button @click="estado=!estado; guardar = !guardar" >Editar</Button>
+            <button @click="irRegistrarInmueble" >Registrar inmueble</button>
+            <button @click="eliminar" class="eliminar">Eliminar</button>
        </div>
        
 
@@ -44,9 +45,6 @@
                 token:"",
             }
         },
-        mounted(){
-            this.asignarToken()
-        },
         computed:{
             ...mapState(['cliente'])
         },
@@ -57,7 +55,7 @@
             },
             async eliminar(){
                 console.log(this.cliente["id"])
-                const response = await api.delete("/api/private/clients/delete/"+this.cliente['id'], this.token)
+                const response = await api.delete("/api/private/clients/delete/"+this.cliente['id'], getToken())
                 const toast = useToast();
 
                 if(response.success){
@@ -67,13 +65,10 @@
                     toast.error("El Cliente no ha sido eliminado")
                 }
             },
-            asignarToken(){
-                this.token = getToken();
-            },
             async guardarDatos(){
 
                 console.log(this.actualizarDatos)
-                const response = await api.put("/api/private/clients/update/"+this.cliente['id'], this.actualizarDatos(), this.token)
+                const response = await api.put("/api/private/clients/update/"+this.cliente['id'], this.actualizarDatos(), getToken())
                 const toast = useToast();
 
                 if(response.success){

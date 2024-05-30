@@ -14,6 +14,10 @@
                 </select>
                 <button @click.prevent=" registrarOferta()" style="height: 38px;">Registrar</button>
             </div>
+            <br>
+            <div class="flex-row-30gap">
+                <button @click="$router.go(-1)" >Volver</button>
+            </div>
         </form>
 
     </div>

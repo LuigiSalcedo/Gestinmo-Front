@@ -30,10 +30,11 @@
                 
         </form>
             <br>
-        <div>
-            <Button @click="estado=!estado; guardar = !guardar" style="margin-right: 20px;">Editar</Button>
-            <button @click="eliminar()" class="eliminar">Eliminar</button>
+        <div class="flex-row-30gap" >
+            <button @click="$router.go(-1)" >Volver</button>
+            <Button @click="estado=!estado; guardar = !guardar">Editar</Button>
             <button @click="irCrearOferta()">Crear oferta</button>
+            <button @click="eliminar()" class="eliminar">Eliminar</button>
         </div>
         </div>
         <h3>Ofertas</h3>
@@ -78,12 +79,9 @@
                 this.$store.commit('setInmueble', this.inmueble); 
                 this.$router.push("/Registraroferta"); 
             },
-            asignarToken(){
-                this.token = getToken()
-            },
             async getTipos(){
                 const toast = useToast()
-                const response = await api.get("/api/private/properties/types", this.token)
+                const response = await api.get("/api/private/properties/types", getToken())
                 if(response.success){
                     this.tipos = response.data
                 }else{
@@ -92,7 +90,7 @@
             },
             async guardarInmueble(){
                 const toast = useToast()
-                const response = await api.put("/api/private/properties/update/"+this.inmueble['id'],this.actualizarDatos() ,this.token)
+                const response = await api.put("/api/private/properties/update/"+this.inmueble['id'],this.actualizarDatos() , getToken())
 
                 if(response.success){
                     const datos = this.actualizarDatos();
@@ -115,7 +113,7 @@
             },
             async eliminar(){
                 const toast = useToast()
-                const response = await api.delete("/api/private/properties/delete/"+this.inmueble['id'], this.token)
+                const response = await api.delete("/api/private/properties/delete/"+this.inmueble['id'], getToken())
                 if(response.success){
                     
                     toast.success("Se elimino correctamente el inmueble: "+ this.inmueble['id'])
@@ -127,7 +125,7 @@
             },
             async getOffers(){
                 const toast = useToast()
-                const response = await api.get("/api/private/offers/search/property/"+this.propertyId, this.token)
+                const response = await api.get("/api/private/offers/search/property/"+this.propertyId, getToken())
                 if(response.success){
                     this.offers = response.data
                 }else{
@@ -136,7 +134,6 @@
             }
         },
         mounted(){
-            this.asignarToken()
             this.getTipos()
         },
         computed:{

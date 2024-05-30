@@ -31,6 +31,7 @@
         <br>
         <br>
        <div class="flex-row-30gap">
+            <button @click="$router.go(-1)" >Volver</button>
             <button @click="eliminar()" class="eliminar">Eliminar</button>
        </div>
        
@@ -55,19 +56,15 @@ import { mapState } from 'vuex'
                 captacion: {nombre: "Captación", tipo:"Text", name:"captacion"},
                 estado:"false",
                 guardar:"false",
-                token:""
             }
         },
         computed:{
             ...mapState(["oferta"])
         },
-        mounted(){
-            this.asignarToken()
-        },
         methods:{
             async eliminar(){
                 const toast = useToast()
-                const response = await api.delete("/api/private/offers/delete/"+this.oferta["id"], this.token)
+                const response = await api.delete("/api/private/offers/delete/"+this.oferta["id"], getToken())
                 if(response.success){
                     toast.success("Se elimino la oferta correctamente")
                     this.$router.push("/Inmuebles")
@@ -75,9 +72,6 @@ import { mapState } from 'vuex'
                     toast.error("no se pudo eliminar la oferta")
                 }
             },
-            asignarToken(){
-                this.token = getToken()
-            }
         }
     }
 </script>

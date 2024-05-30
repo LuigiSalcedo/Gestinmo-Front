@@ -1,12 +1,22 @@
 <template>
-    <label>Subir un archivo: <input type="file" @change="handleFileChange" /></label>
-    <button :onClick="subirArchivo">Subir archivo</button>
-    <h3>Documentos disponibles</h3>
-    <div class="flex-row-gap30" v-for="document in documents" :key="document">
-        <VentanaDocumento
-         @download="descargarDocumento"
-         @delete="eliminarDocumento" :nombre="document"/>
+    <div class="flex-column-bgblue-pd30">
+        <label class="label-bold-17-start">Subir un archivo: <input type="file" @change="handleFileChange" /></label>
+        <br>
+        <button :onClick="subirArchivo">Subir archivo</button>
+        <h3>Documentos disponibles</h3>
+
+        <div class="flex-row-gap20">
+            <div class="flex-column-borderwhite" v-for="document in documents" :key="document">
+                <VentanaDocumento
+                @download="descargarDocumento"
+                @delete="eliminarDocumento" :nombre="document"/>
+            </div>
+        </div>
+
+        
+
     </div>
+   
 </template>
 <script setup>
 import { ref } from 'vue';
@@ -87,4 +97,18 @@ const handleFileChange = (event) => {
 
 obtenerArchivos();
 </script>
-<style scoped></style>
+
+<style scoped>
+    .flex-column-borderwhite{
+        display: flex;
+        flex-direction: column;
+        border:4px solid white;
+        border-radius: 4px;
+        padding: 10px;
+    }
+    .flex-row-gap20{
+        display: flex;
+        flex-direction: row;
+        gap: 10px   ;
+    }
+</style>

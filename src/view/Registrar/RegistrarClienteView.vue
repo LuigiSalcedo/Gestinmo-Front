@@ -8,7 +8,8 @@
                 <button @click.prevent="Registrar" style="height: 38px;">Registrar</button>
             </div>
             <br>
-            <div class="flex-align-left">
+            <div class="flex-row-30gap">
+                <button @click.prevent="$router.go(-1)" >Volver</button>
                 <button @click.prevent="irRegistrarInmueble">Registrar cliente e inmueble</button>
             </div>
         </form>
@@ -28,9 +29,6 @@ export default{
     components:{
         InputForm
     },
-    mounted(){
-        this.asignarToken()
-    },
     methods:{
         actualizarValores(){
             this.valoresInput = this.$refs.inputForm.map(child => child.getInputValues())
@@ -45,7 +43,7 @@ export default{
             const toast = useToast();
             this.actualizarValores();
 
-            const response = await api.post('/api/private/clients/save', this.cliente, this.token);
+            const response = await api.post('/api/private/clients/save', this.cliente, getToken());
             
                 
             if(response.success){
@@ -60,15 +58,12 @@ export default{
         async Registrar(){
             const toast = useToast();
             this.actualizarValores();
-            const response = await api.post('/api/private/clients/save', this.cliente, this.token);
+            const response = await api.post('/api/private/clients/save', this.cliente, getToken());
             if(response.success){
                 toast.success("Cliente registrado correctamente")
             }else{
                 toast.error("No se pudo registrar cliente")
             }
-        },
-        asignarToken(){
-            this.token = getToken();
         }
     },
     data(){
@@ -100,6 +95,7 @@ export default{
 
     .flex-row-30gap{
         display: flex;
+        flex-direction: row;
         width: 100%;
         gap: 30px;
     }
