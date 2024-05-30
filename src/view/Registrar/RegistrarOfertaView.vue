@@ -55,7 +55,7 @@ import { mapState } from 'vuex';
                 return oferta;
             },
             async getCaptacion(){
-                const response = await api.get("/api/private/offers/types", this.token)
+                const response = await api.get("/api/private/offers/types", getToken())
                 const toast = useToast()
                 if(response.success){
                     this.captaciones = response.data;
@@ -63,13 +63,10 @@ import { mapState } from 'vuex';
                     toast.error("No se encontraron tipos de captaciones");
                 }
             },
-            asignarToken(){
-                this.token = getToken()
-            },
             async registrarOferta(){
                 const toast = useToast()
                 console.log(this.datosOferta())
-                const response = await api.post("/api/private/offers/save", this.datosOferta(), this.token)
+                const response = await api.post("/api/private/offers/save", this.datosOferta(), getToken())
                 if(response.success){
                     toast.success("Se registro la oferta correctamente")
                 }else{
@@ -78,7 +75,6 @@ import { mapState } from 'vuex';
             }
         },
         mounted(){
-            this.asignarToken()
             this.getCaptacion()
         },
         computed:{
