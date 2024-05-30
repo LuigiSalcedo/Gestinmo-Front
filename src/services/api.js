@@ -78,9 +78,18 @@ const handleResponse = async (response) => {
         body: JSON.stringify(data),
       });
       return handleResponse(response);
-    }
-    ,
-
+    },
+    post_whiout_token: async (endpoint, data) => {
+      const response = await fetch(`${baseURL}${endpoint}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'accept': '*/*'
+        },
+        body: JSON.stringify(data),
+      });
+      return handleResponse(response);
+    },
     login: async(endpoint, data)=>{
         const response = await fetch(`${baseURL}${endpoint}`, {
         method: 'POST',

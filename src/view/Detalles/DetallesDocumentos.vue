@@ -12,9 +12,6 @@
                 @delete="eliminarDocumento" :nombre="document"/>
             </div>
         </div>
-
-        
-
     </div>
    
 </template>

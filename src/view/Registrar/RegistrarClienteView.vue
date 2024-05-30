@@ -5,7 +5,7 @@
         <form action="" class="flex-column">
             <div class="flex-row-30gap">
                 <InputForm ref="inputForm" v-for="input in inputs" :key="input" :input="input"/>
-                <button @click.prevent="Registrar" style="height: 38px;">Registrar</button>
+                <button @click.prevent="registrar" style="height: 38px;">Registrar</button>
             </div>
             <br>
             <div class="flex-row-30gap">
@@ -30,35 +30,32 @@ export default{
         InputForm
     },
     methods:{
-        actualizarValores(){
-            this.valoresInput = this.$refs.inputForm.map(child => child.getInputValues())
-            this.cliente = {
-                    id:this.valoresInput[0],
-                    name:this.valoresInput[1],
-                    phoneNumber:this.valoresInput[2],
-                    email:this.valoresInput[3]
-                }
+        datos(){
+            const valoresInput = this.$refs.inputForm.map(child => child.getInputValues())
+            const cliente = {
+                id: valoresInput[0],
+                name: valoresInput[1],
+                phoneNumber: valoresInput[2],
+                email: valoresInput[3]
+            }
+            return cliente
         },
         async irRegistrarInmueble() {
             const toast = useToast();
-            this.actualizarValores();
-
-            const response = await api.post('/api/private/clients/save', this.cliente, getToken());
+            const response = await api.post('/api/private/clients/save', this.datos(), getToken());
             
-                
             if(response.success){
                 toast.success("Cliente registrado correctamente")
-                this.$store.commit('setCliente', this.cliente); 
+                this.$store.commit('setCliente', this.datos()); 
                 this.$router.push("/RegistrarInmueble");
             }else{
                 toast.error("No se pudo registrar cliente")
             }
              
         },
-        async Registrar(){
+        async registrar(){
             const toast = useToast();
-            this.actualizarValores();
-            const response = await api.post('/api/private/clients/save', this.cliente, getToken());
+            const response = await api.post('/api/private/clients/save', this.datos(), getToken());
             if(response.success){
                 toast.success("Cliente registrado correctamente")
             }else{
@@ -73,10 +70,7 @@ export default{
                 {nombre: "Nombre", tipo:"Text", name:"nombre"},
                 {nombre: "Celular", tipo:"Text", name:"celular"},
                 {nombre: "Correo", tipo:"email", name:"email"},
-            ],
-            valoresInput: [],
-            cliente: Object,
-            token:""
+            ]
         }
     }
 }

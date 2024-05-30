@@ -17,6 +17,9 @@
                 <InputForm ref="pass" :input="contraseña"/>
                 <br>
                 <button @click.prevent="iniciarSesion">Ingresar</button>
+                <br>
+                <br>
+                <router-link to="/RegistrarAsesor">Registrar Asesor</router-link>
             </form>
         </div>
     </div>
@@ -75,7 +78,7 @@ export default{
         cambiarimg(){
             this.indice = (this.indice + 1) % this.rutas.length;
         },
-        actualizarValores(){
+        datos(){
             const user = {
                     'login': this.$refs.user.getInputValues(),
                     'password':this.$refs.pass.getInputValues(),
@@ -86,9 +89,8 @@ export default{
                 this.$emit('titulo-enviado',"Login");
             },
         async iniciarSesion(){
-            console.log(this.actualizarValores())
             const toast = useToast();
-            const response = await api.login("/api/public/auth/login", this.actualizarValores())
+            const response = await api.login("/api/public/auth/login", this.datos())
             
                 if(response.success){
                     console.log(response.data["token"])

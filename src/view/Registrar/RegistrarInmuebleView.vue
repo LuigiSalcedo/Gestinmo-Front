@@ -64,13 +64,11 @@
             return{
                 propietario:{nombre: "Id propietario", tipo:"Text", name:"propietario"},
                 direccion: {nombre: "Dirección", tipo:"Text", name:"direccion"},
-                token:"",
                 barrios:[],
                 tipos:[]
             }
         },
         mounted(){
-            this.asignarToken()
             this.getBarrios()
             this.getTipos()
         },
@@ -80,7 +78,7 @@
         methods:{
             async getBarrios(){
                 const toast = useToast()
-                const response = await api.get("/api/private/properties/neighborhoods", this.token)
+                const response = await api.get("/api/private/properties/neighborhoods", getToken())
                 if(response.success){
                     this.barrios = response.data
                 }else{
@@ -89,27 +87,24 @@
             },
             async getTipos(){
                 const toast = useToast()
-                const response = await api.get("/api/private/properties/types", this.token)
+                const response = await api.get("/api/private/properties/types", getToken())
                 if(response.success){
                     this.tipos = response.data
                 }else{
                     toast.error("No se encontraron barrios")
                 }
             },
-            asignarToken(){
-                this.token = getToken();
-            },
-
             async registrarInmueble(){
                 const toast = useToast()
-                const response = await api.post("/api/private/properties/save", this.actualizarDatos(), this.token)
+                const response = await api.post("/api/private/properties/save", this.datos(), getToken())
                 if(response.success){
                     toast.success("El inmueble se registro correctamente")
                 }else{
                     toast.error("No se pudo registrar el inmueble")
                 }
             },
-            actualizarDatos(){
+
+            datos(){
                 const inmueble = {
                     "neighborhood-id": this.$refs.neighborhood.value,
                     "type-id":  this.$refs.type.value,
@@ -117,7 +112,6 @@
                     "address": this.$refs.address.getInputValues() ,
                     "observations":  this.$refs.observations.value
                 }
-                console.log(inmueble)
                 return inmueble
             }
         }

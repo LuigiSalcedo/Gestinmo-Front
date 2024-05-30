@@ -10,6 +10,7 @@ import DetallesInmueble from "@/view/Detalles/DetallesInmueble.vue";
 import OfertasView from "@/view/vistasPrincipales/OfertasView.vue";
 import DetallesOferta from "@/view/Detalles/DetallesOferta.vue";
 import RegistrarOfertaView from "@/view/Registrar/RegistrarOfertaView.vue";
+import RegistarAsesorView from "@/view/Registrar/RegistrarAsesorView.vue"
 
 const routes = [
   {
@@ -23,6 +24,11 @@ const routes = [
     name: "Inmuebles",
     component: InmueblesView,
     meta: { requiresAuth: true } 
+  },
+  {
+    path: "/RegistrarAsesor",
+    name: "RegistrarAsesor",
+    component: RegistarAsesorView,
   },
   {
     path: "/Desktop",
