@@ -102,6 +102,7 @@ obtenerArchivos();
         border:4px solid white;
         border-radius: 4px;
         padding: 10px;
+        text-overflow: ellipsis;
     }
     .flex-row-gap20{
         display: flex;

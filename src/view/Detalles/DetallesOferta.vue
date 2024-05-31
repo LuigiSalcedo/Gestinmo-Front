@@ -6,8 +6,7 @@
         <div class="div-parrafo-blanco">
             
             <p class="label-bold-17-start">{{ oferta["catchmentType"]['name'] }}: {{ oferta['property']['neighborhood']['name'] }}</p>
-            <p class="label-bold-17-start">Propietario</p>
-            {{oferta['property']['neighborhood']['name']}}
+           
             <p class="label-bold-17-start">Descripción</p>
             {{ oferta['property']['observations'] }}
     
@@ -83,5 +82,6 @@ import { mapState } from 'vuex'
         flex-direction: column;
         padding: 20px;
         align-items: flex-start;
+        text-overflow: ellipsis;
     }
 </style>

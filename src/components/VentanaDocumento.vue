@@ -1,6 +1,6 @@
 <template>
-    <div class="flex-column" style="width: 200px;">
-        <label class="label-bold-17-start">{{ props.nombre }}</label>
+    <div class="flex-column text-ellipsis" style="width: 200px;">
+        <label class="label-bold-17-start ">{{ props.nombre }}</label>
         <br>
         <div class="flex-row-30gap">
             <button @click="descargarDocumento">Descargar</button>
@@ -31,4 +31,8 @@ const descargarDocumento = () => {
 
 </script>
 <style scoped>
+.text-ellipsis{
+    text-overflow: ellipsis;
+}
+
 </style>
