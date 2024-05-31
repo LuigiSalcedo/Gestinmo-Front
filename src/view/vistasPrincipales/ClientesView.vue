@@ -24,11 +24,10 @@
     </div>
     <div class="flex-p10-g20">
         <AgregarButton ruta="/RegistrarCliente" width="140px"/>
-        
-        <VentanaCliente v-for="cliente in clientes" 
-        :key="cliente"
-        :clienteD="cliente"
-        />
+            <VentanaCliente v-for="cliente in clientes" 
+            :key="cliente"
+            :clienteD="cliente"
+            />
     </div>
    
 </template>
@@ -80,7 +79,7 @@
                 let endpoint = '/api/private/clients/search/' + this.selectedType + "/" + this.filterValue;
                 const response = await api.get(endpoint, this.token);
                 const toast = useToast();
-                if(response.statusCode > 204) {
+                if(response.data == null) {
                     toast.error("Cliente no encontrado");
                     return;
                 }
