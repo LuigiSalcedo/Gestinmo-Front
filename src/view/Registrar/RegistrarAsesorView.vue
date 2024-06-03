@@ -49,9 +49,9 @@
                 inputs :[
                     {nombre: "Identificación", tipo:"Text", name:"id"},
                     {nombre: "Nombre", tipo:"Text", name:"nombre"},
-                    {nombre: "Contraseña", tipo:"Text", name:"celular"},
+                    {nombre: "Contraseña", tipo:"Password", name:"celular"},
                     {nombre: "Email", tipo:"text", name:"email"},
-                    {nombre: "Contraseña maestra", tipo:"text", name:"contraseña"},
+                    {nombre: "Contraseña maestra", tipo:"Password", name:"contraseña"},
                 ]
             }
         }
