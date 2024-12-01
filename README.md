@@ -1,24 +1,20 @@
 # gestinmo-front
+## Pre-requisitos
+Ya debió haber realizado del backend de la aplicación [gestinmo](http://github.com/LuigiSalcedo/gestinmo).
 
-## Project setup
+Debe tener Node.Js instalado en su máquina.
+
+## Despliegue
+Ejecute sobre el root del proyecto.
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+Seguido
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Esto ejecutará la aplicación en su http://localhost:8081 en modo desarrollo.
 
-### Lints and fixes files
-```
-npm run lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
